@@ -1,0 +1,7 @@
+<p>profile-detail works!</p>
+<div class="detail">
+    <h2>Hi, {{ user | json }}!</h2>
+    
+</div>
+<button [routerLink]="['/profile', user.username, 'edit']"
+routerLinkActive="router-link-active">Edit this Profile</button>

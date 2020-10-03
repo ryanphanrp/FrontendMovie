@@ -1,0 +1,55 @@
+<!-- Materials Design -->
+<mat-card class="login-card">
+    <mat-card-header>
+        <h2>Login</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <form name="user"
+        *ngIf="!isLoggedIn; else LoggedIn"
+        #loginForm="ngForm"
+        (submit)="onSubmit()">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="email"
+            matInput
+            placeholder="someone@domain.com"
+            required
+            [(ngModel)]="user.email"
+            #email="ngModel"
+            name="email"
+            >
+            <mat-error *ngIf="email.touched && !email.valid">
+                <span *ngIf="email.errors.required">Email is required</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password"
+            matInput
+            name="password"
+            required
+            minlength="8"
+            [(ngModel)]="user.password"
+            [pattern]="passwordPattern"
+            #password="ngModel"
+            [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="password.touched && !password.valid">
+                <span *ngIf="password.errors.required">Password is required</span>
+                <span *ngIf="password.errors.minlength || password.errors.maxlength">Length from 6 to 32 characters</span>
+                <span *ngIf="!(password.errors.minlength || password.errors.maxlength) && password.errors.pattern">
+                  Only alphabet, digit and at least one of !@#$%^&*
+                </span>
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="accent">Login</button>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<ng-template #LoggedIn>
+    <h2>Success!</h2>
+    <button mat-flat-button color="warn" (click)="logout()">Logout</button>
+</ng-template>

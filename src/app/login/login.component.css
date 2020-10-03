@@ -1,0 +1,14 @@
+.login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-card-content {
+    width: 50%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

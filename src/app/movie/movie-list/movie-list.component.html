@@ -1,0 +1,9 @@
+<p>movie-list works!</p>
+{{ categories | json }}
+<ul>
+    <li *ngFor="let cate of categories">
+        <a [routerLink]="['/movie/', cate.kind]"
+        routerLinkActive="router-link-active">{{ cate.title }}</a>
+    </li>
+</ul>
+<router-outlet></router-outlet>

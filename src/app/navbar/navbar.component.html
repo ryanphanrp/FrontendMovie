@@ -1,0 +1,13 @@
+<mat-toolbar color="accent">
+  <span>{{ title }}</span>
+  <span class="example-spacer"></span>
+  <a mat-button
+    color="white"
+    [routerLink]="['/home']"
+    routerLinkActive="{ exact: true }">Home</a>
+  <a mat-button color="white" routerLink="/login">Login</a>
+  <a mat-button color="white" routerLink="/register">Register</a>
+  <a mat-button color="white" routerLink="profile">Profile</a>
+  <a mat-button color="white" routerLink="movie">Movie</a>
+  <a mat-button color="white" routerLink="admin">Admin</a>
+</mat-toolbar>

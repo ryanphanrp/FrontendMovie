@@ -1,0 +1,14 @@
+<p>movie-detail works!</p>
+<div class="detail">
+    {{ movie | json }}
+</div>
+
+<plyr style="display: block; width: 100%;"
+    plyrTitle="{{ movie.title }}"
+    [plyrPlaysInline]="true"
+    [plyrSources]="videoSources"
+    [plyrOptions]="options"
+    (plyrInit)="player = $event"
+    (plyrPlay)="played($event)"></plyr>
+
+<button mat-raised-button color="accent" (click)="play()">Play</button>

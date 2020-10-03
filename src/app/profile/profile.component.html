@@ -1,0 +1,12 @@
+<p>profile works!</p>
+<p>Parent works!</p>
+
+<div class="container">
+    <ul>
+        <li *ngFor="let user of userList">
+            <a [routerLink]="['/profile', user.username]"
+            routerLinkActive="router-link-active">{{ user.username }}</a>
+        </li>
+    </ul>
+    <router-outlet></router-outlet>
+</div>
