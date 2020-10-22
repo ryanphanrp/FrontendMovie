@@ -11,26 +11,26 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
 
-  user: any = {}
+  user: any = {};
   isLoggedIn = false;
   isLoggedFailed = false;
-  failed_message = "";
+  failed_message = '';
 
 
   // forms
   hide = true;
-  passwordPattern = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]{6,32}$/;
+  passwordPattern = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]$/;
 
-  
+
   constructor(
     private authService: AuthService,
     private tokenService: TokenService,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
+    if (this.tokenService.getToken()){
       this.isLoggedIn = true;
     }
   }
@@ -42,18 +42,18 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveToken(data.data.accessToken);
         this.tokenService.saveUser(data);
 
-        //for templates
+        // for templates
         this.isLoggedIn = true;
         this.authService.isAuthorized = true;
         this.isLoggedFailed = false;
-        //this.reloadPage();
+        // this.reloadPage();
       },
       error => {
         this.isLoggedFailed = true;
         this.failed_message = error.error.message;
         this.openSnackBar(this.failed_message);
       }
-    )
+    );
   }
 
 
@@ -73,10 +73,10 @@ export class LoginComponent implements OnInit {
 
   // snackBar
   openSnackBar(message: string) {
-    this._snackBar.open(message, 'Close', {
+    this.snackBar.open(message, 'Close', {
       duration: 5000,
-      horizontalPosition: "center",
-      verticalPosition: "top",
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 }

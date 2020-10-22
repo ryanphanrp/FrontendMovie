@@ -1,5 +1,15 @@
 <p>admin works!</p>
-<button mat-raised-button color="warn" routerLink="user">User</button>
-<button mat-raised-button color="warn" routerLink="movie">Movie</button>
-<button mat-raised-button color="warn" routerLink="login">Login</button>
-<router-outlet></router-outlet>
+<mat-grid-list cols="12">
+  <mat-grid-tile
+    [colspan]="3"
+    [rowspan]="3" class="left">
+      <button mat-raised-button color="warn" routerLink="user">User</button>
+      <button mat-raised-button color="warn" routerLink="movie">Movie</button>
+      <button mat-raised-button color="warn" routerLink="login">Login</button>
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="9"
+    [rowspan]="3" class="right">
+      <router-outlet></router-outlet>
+  </mat-grid-tile>
+</mat-grid-list>

@@ -17,18 +17,14 @@ const movieRoutes: Routes = [
         component: MovieListComponent
       },
       {
-        path: ':kind',
-        children: [
-          {
-            path: '',
-            component: MovieCategoryComponent
-          },
-          {
-            path: ':slug',
-            component: MovieDetailComponent
-          }
-        ]
+        path: ':name',
+        component: MovieCategoryComponent
+      },
+      {
+        path: ':name/:slug',
+        component: MovieDetailComponent
       }
+
     ]
 
   }

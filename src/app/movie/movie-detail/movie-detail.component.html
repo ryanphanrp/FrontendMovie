@@ -1,14 +1,14 @@
-<p>movie-detail works!</p>
-<div class="detail">
-    {{ movie | json }}
+<div class="contain-movie">
+  <mat-card class="movie-card">
+    <video id="plyrID" controls src="{{ movie?.source }}">
+      <source src="{{ movie?.source }}" type="video/mp4"
+              size="1080">
+      <a href="{{ movie?.source }}" download>Download</a>
+    </video>
+    <mat-card-content>
+      <mat-card-title>{{ movie?.title }}</mat-card-title>
+      <mat-card-subtitle>{{ movie?.category }}</mat-card-subtitle>
+      <p>{{ movie?.description }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<plyr style="display: block; width: 100%;"
-    plyrTitle="{{ movie.title }}"
-    [plyrPlaysInline]="true"
-    [plyrSources]="videoSources"
-    [plyrOptions]="options"
-    (plyrInit)="player = $event"
-    (plyrPlay)="played($event)"></plyr>
-
-<button mat-raised-button color="accent" (click)="play()">Play</button>

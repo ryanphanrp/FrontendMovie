@@ -1,0 +1,38 @@
+.movies {
+  margin: 10px 20px;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.movie {
+  max-width: 320px;
+  border: 1px solid #2ecc71;
+  margin: 10px 10px;
+}
+
+mat-card {
+  padding: 0 0;
+  min-height: 200px;
+}
+
+.movies-header {
+  background-color: #27ae60;
+  padding: 10px 5px;
+  border-radius: 10px;
+}
+
+.movie-header {
+  background-color: #2ecc71;
+  padding: 0.5em;
+  height: 60px;
+}
+
+mat-card-title {
+  color: white;
+}
+
+img {
+  min-height: 150px;
+  width: 100%;
+  margin: 0 0;
+}

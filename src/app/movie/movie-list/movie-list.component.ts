@@ -12,6 +12,7 @@ export class MovieListComponent implements OnInit {
 
   movieList: IMovie[];
   categories: ICategory[];
+  listMovieAPI: any;
 
   constructor(
     private movieService: MovieService,
@@ -19,12 +20,12 @@ export class MovieListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.movieService.getCategories().subscribe(data => this.categories = data);
+    this.movieService.getCates().subscribe(data => this.categories = data);
     this.activatedRoute.queryParamMap.subscribe(
       query => {
         const orderby = query.get('orderby');
       }
-    )
+    );
   }
 
 }

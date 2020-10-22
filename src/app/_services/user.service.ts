@@ -29,7 +29,7 @@ export class UserService {
   }
 
   findUserByID(ID: string): Observable<IUser> {
-    const user = this.users.find(item => item.username == ID);
+    const user = this.users.find(item => item.username === ID);
     console.log(user);
     if(user){
       return of(user).pipe(delay(50));
