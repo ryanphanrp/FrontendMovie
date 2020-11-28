@@ -1,73 +1,94 @@
-<!-- Materials Forms -->
-<mat-card class="register-card">
-    <mat-card-header>
-        <h2>Register</h2>
-    </mat-card-header>
-    <mat-card-content>
-        <form name="payload"
-        *ngIf="!isSuccessful"
-        #loginForm="ngForm">
-        <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input type="email"
-            matInput
-            placeholder="someone@domain.com"
-            required
-            [(ngModel)]="payload.email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}$"
-            #email="ngModel"
-            name="email"
-            >
-            <mat-error *ngIf="email.touched && !email.valid">
-                <span *ngIf="email.errors.required">Email is required!</span>
-                <span *ngIf="email.errors.pattern">Email is not a valid</span>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input type="password"
-            matInput
-            name="password"
-            required
-            minlength="8"
-            [(ngModel)]="payload.password"
-            [pattern]="passwordPattern"
-            #password="ngModel"
-            [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <mat-error *ngIf="password.touched && !password.valid">
-                <span *ngIf="password.errors.required">Password is required</span>
-                <span *ngIf="password.errors.minlength || password.errors.maxlength">Length from 6 to 32 characters</span>
-                <span *ngIf="!(password.errors.minlength || password.errors.maxlength) && password.errors.pattern">
-                  Only alphabet, digit and at least one of !@#$%^&*
-                </span>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input type="password"
-            matInput
-            name="confirm_password"
-            required
-            minlength="8"
-            [(ngModel)]="payload.confirm_password"
-            [pattern]="passwordPattern"
-            #confirm_password="ngModel"
-            [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <mat-error *ngIf="confirm_password.touched && !confirm_password.valid">
-                <span *ngIf="confirm_password.value !== password.value">Password doesn't match</span>
-            </mat-error>
-        </mat-form-field>
-        <button type="submit" (click)="onSubmit()" mat-raised-button color="accent" [disabled]="!loginForm.valid">Submit</button>
-        </form>
-    </mat-card-content>
-</mat-card>
+<div nz-row class="register-component">
+  <div nz-col nzSpan="8" class="register-panel">
+    <h1 nz-typography>Register</h1>
+    <h5 nz-typography>Welcome to TeamMovie, register an acount to using our services and watch movies.</h5>
+    <br>
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)" *ngIf="!authService.isAuthorized; else loggedPanel">
+      <!--  Nickname-->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Nickname</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+          <input nz-input formControlName="nickname" placeholder="Some Nickname" />
+          <ng-template #userErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please input your nickname!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
 
-<div class="success" *ngIf="isSuccessful">
-    <h1>Successful!!!</h1>
+
+      <!--  Email-->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="emailErrorTpl">
+          <input nz-input formControlName="email" placeholder="async validate try to write anh4bi@gmail.com" type="email" />
+          <ng-template #emailErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('email')">
+              The input is not valid e-mail!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('required')">
+              Please input your e-mail!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('duplicated')">
+              This email has existed!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <!--  Password-->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+          <input nz-input formControlName="password" type="password" placeholder="Enter your password" (ngModelChange)="validateConfirmPassword()" />
+          <ng-template #passwordErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please enter your password!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('minlength')">
+              Password must be least 8 character long!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">
+              Password must contain at least one number and both lower and uppercase letters and special characters!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <!--  Confirm Password-->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Confirm Password</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="confirmErrorTpl">
+          <input nz-input type="password" formControlName="confirm" placeholder="confirm your password" />
+          <ng-template #confirmErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              Please confirm your password!
+            </ng-container>
+            <ng-container *ngIf="control.hasError('confirm')">
+              Password is inconsistent!
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+          <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+          <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+    <!-- Show this panel when logged-->
+    <ng-template #loggedPanel>
+      <h2>Success!</h2>
+      <button nz-button nzType="primary" (click)="logout()" nzDanger>Logout</button>
+    </ng-template>
+  </div>
+  <div nz-col nzSpan="16">
+    <img class="cover-right" src="https://i.imgur.com/LCeoJK5.jpg" alt="anh login">
+  </div>
 </div>

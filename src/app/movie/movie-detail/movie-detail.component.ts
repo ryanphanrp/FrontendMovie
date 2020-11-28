@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map, switchMap} from 'rxjs/operators';
 import {MovieService} from 'src/app/_services/movie.service';
-import {IMovie} from 'src/app/_shared/movie';
+import {ICategory, IMovie} from 'src/app/_shared/movie';
 
 
 let Plyr = require('plyr');
@@ -18,6 +18,11 @@ export class MovieDetailComponent implements OnInit {
 
   public movie: IMovie;
   public player;
+  public category: ICategory;
+
+  // Rating
+  tooltips = ['dở tệ', 'không hay', 'bình thường', 'hay!', 'tuyệt vời!'];
+  value = 3;
 
 
   constructor(
@@ -30,7 +35,7 @@ export class MovieDetailComponent implements OnInit {
     this.activatedRoute.paramMap.pipe(
       map(pramas => pramas.get('slug')),
       switchMap(slug => this.movieService.findMovieBySlug(slug))
-    ).subscribe(item => this.movie = item);
+    ).subscribe(item => this.movie = item );
 
     // player
     this.player = new Plyr('#plyrID', {
@@ -54,6 +59,9 @@ export class MovieDetailComponent implements OnInit {
         'fullscreen' // Toggle fullscreen
       ]
     });
+    this.movieService.getMoviesByCategory(this.movie.category[0]).subscribe(
+      data => this.category = data
+    );
   }
 
 }

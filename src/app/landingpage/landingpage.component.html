@@ -1,0 +1,14 @@
+<div nz-row *ngIf="!isLoggedIn">
+  <div nz-col nzSpan="8"></div>
+  <div nz-col nzSpan="8">
+    <h1 nz-typography>You're not login.</h1>
+    <button nz-button
+            (click)="toLogin()"
+            nzType="primary"
+            nzSize="large"
+            nzShape="round">
+      <i nz-icon nzType="login" nzTheme="outline"></i> Login
+    </button>
+  </div>
+  <div nz-col nzSpan="8"></div>
+</div>

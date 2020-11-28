@@ -1,14 +1,36 @@
-.register-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+[nz-form] {
+  max-width: 600px;
 }
 
-mat-card-content {
-    width: 50%;
+button {
+  margin-left: 8px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.register-panel {
+  padding: 50px 50px;
+  height: 100%;
+}
+
+.register-component {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep div.ant-col.ant-col-16 > img {
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+::ng-deep .avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1em;
+}
+
+::ng-deep .cover-right {
+  height: 100%;
+  max-height: 100%;
+  object-fit: fill;
 }

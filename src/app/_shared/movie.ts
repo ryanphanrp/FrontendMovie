@@ -8,12 +8,13 @@ export interface IMovie {
     description: string; // mo ta
     source: string[]; // link source phim
     poster: string; // anh poster ngoai
-    imageSource: string; // anh thumnail
+    imageSource: string; // anh thumbnail
     dateUpload: string; // ngay upload
 }
 
 export interface ICategory {
-    name: string;
+    name: string; // em lấy danh sách cái cates này, mỗi cái có cái name này
     title: string;
-    movies: IMovie[];
+    movies: IMovie[]; // cái này từ api là rỗng
 }
+

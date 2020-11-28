@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {Observable, Observer} from 'rxjs';
+import {AuthService} from '../_services/auth.service';
+import {TokenService} from '../_services/token.service';
+import {Router} from '@angular/router';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
 
 
 @Component({
@@ -9,46 +13,98 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  validateForm: FormGroup;
 
-  payload: any = {}
-  failed_message = ''
-  isSuccessful = false;
-  isFailed = false;
+  PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{0,}$/;
 
-  // forms
-  hide = true;
-  passwordPattern = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]{6,32}$/;
-
+  // Constructor
   constructor(
-    private authService: AuthService,
-    private _snackBar: MatSnackBar
-  ) { }
+    private fb: FormBuilder,
+    public authService: AuthService,
+    private tokenService: TokenService,
+    private router: Router,
+    private notification: NzNotificationService) {
+    // create reactive form
+    this.validateForm = this.fb.group({
+      nickname: ['',
+        [Validators.required]
+      ],
+      email: ['',
+        [Validators.email, Validators.required],
+        [this.emailAsyncValidator]
+      ],
+      password: ['',
+        [Validators.required, Validators.minLength(8), Validators.pattern(this.PASSWORD_PATTERN)]
+      ],
+      confirm: ['', [this.confirmValidator]]
+    });
+  }
+
+
+  // Submit
+  submitForm(value: { username: string; email: string; password: string; confirm: string }): void {
+    console.log(value);
+    this.authService.register(value).subscribe(
+      data => {
+        this.createNotification('success', 'SUCCESS', 'Register Successful!!!');
+      },
+      err => {
+        this.createNotification('error', 'ERROR', err.error.message);
+      }
+    );
+  }
+
+
+  // Clear value in form
+  resetForm(e: MouseEvent): void {
+    e.preventDefault();
+    this.validateForm.reset();
+  }
+
+  // Validate confirm password
+  validateConfirmPassword(): void {
+    setTimeout(() => this.validateForm.controls.confirm.updateValueAndValidity());
+  }
+
+
+  // Validate Email and check email if existed
+  emailAsyncValidator = (control: FormControl) =>
+    new Observable((observer: Observer<ValidationErrors | null>) => {
+      setTimeout(() => {
+        if (control.value === 'anh4bi@gmail.com') {
+          // you have to return `{error: true}` to mark it as an error event
+          observer.next({error: true, duplicated: true});
+        } else {
+          observer.next(null);
+        }
+        observer.complete();
+      }, 100);
+    })
+
+
+  // Validate Password
+  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return {error: true, required: true};
+    } else if (control.value !== this.validateForm.controls.password.value) {
+      return {error: true, confirm: true};
+    }
+    return {};
+  }
+
+  // logout
+  logout(): void {
+    this.tokenService.logOut();
+    this.authService.isAuthorized = false;
+    this.router.navigateByUrl('/');
+  }
 
   ngOnInit(): void {
   }
 
-  onSubmit(): void {
-    this.authService.register(this.payload).subscribe(
-      data => {
-        console.log(data);
-        this.isSuccessful = true;
-        this.isFailed = false;
-      },
-      err => {
-        this.isFailed = true;
-        this.failed_message = err.error.message;
-        this.openSnackBar(this.failed_message);
-      }
-    )
-  }
-
-  // snackBar
-  openSnackBar(message: string) {
-    this._snackBar.open(message, 'Close', {
-      duration: 5000,
-      horizontalPosition: "center",
-      verticalPosition: "top",
-    });
+  // Create Notification when submit
+  createNotification(type: string, title: string, body: string): void {
+    this.notification.create(type, title, body);
   }
 
 }

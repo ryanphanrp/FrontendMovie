@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { AuthService } from '../_services/auth.service';
-import { TokenService } from '../_services/token.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../_services/auth.service';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {Router} from '@angular/router';
+import {TokenService} from '../_services/token.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,73 +12,74 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  user: any = {};
+  validateForm!: FormGroup;
+  message: string;
   isLoggedIn = false;
-  isLoggedFailed = false;
-  failed_message = '';
-
-
-  // forms
-  hide = true;
-  passwordPattern = /^(?=.*[!@#$%^&*]+)[a-zA-Z0-9!@#$%^&*]$/;
-
+  isVisible = false;
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private tokenService: TokenService,
-    private snackBar: MatSnackBar
-  ) { }
-
-
-  ngOnInit(): void {
-    if (this.tokenService.getToken()){
-      this.isLoggedIn = true;
-    }
+    private fb: FormBuilder,
+    private notification: NzNotificationService) {
   }
 
+  ngOnInit(): void {
+    if (this.tokenService.getToken()) {
+      this.isLoggedIn = true;
+    }
 
-  onSubmit(): void {
-    this.authService.login(this.user).subscribe(
+    this.validateForm = this.fb.group({
+      email: [
+        '',
+        [Validators.required, Validators.email]
+      ],
+      password: [
+        '',
+        [Validators.required, Validators.minLength(6)],
+      ],
+      // rememberMe: false,
+    });
+  }
+
+  // Submit
+  submitForm(): void {
+    this.authService.login(this.validateForm.value).subscribe(
       data => {
+        console.log(data);
+
+        // Token
         this.tokenService.saveToken(data.data.accessToken);
         this.tokenService.saveUser(data);
 
-        // for templates
+        // notification
         this.isLoggedIn = true;
         this.authService.isAuthorized = true;
-        this.isLoggedFailed = false;
-        // this.reloadPage();
+        this.createNotification('success', 'SUCCESS', 'Login thanh cong se tu dong chuyen huong');
+        this.router.navigateByUrl('home/movie');
       },
-      error => {
-        this.isLoggedFailed = true;
-        this.failed_message = error.error.message;
-        this.openSnackBar(this.failed_message);
+      err => {
+        this.createNotification('error', 'ERROR', err.error.message);
       }
     );
   }
 
-
   // logout
   logout(): void {
-    this.isLoggedIn = false;
     this.tokenService.logOut();
-    window.location.reload();
+    this.authService.isAuthorized = false;
+    this.router.navigateByUrl('/');
   }
 
-
-  // reload Page
-  reloadPage(): void {
-    window.location.reload();
+  // Create Notification when submit
+  createNotification(type: string, title: string, body: string): void {
+    this.notification.create(type, title, body);
   }
 
-
-  // snackBar
-  openSnackBar(message: string) {
-    this.snackBar.open(message, 'Close', {
-      duration: 5000,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
+  // reset password
+  showModal(): void {
+    this.isVisible = true;
   }
+
 }

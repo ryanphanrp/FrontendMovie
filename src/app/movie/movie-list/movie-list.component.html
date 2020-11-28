@@ -1,21 +1,35 @@
-<ul>
-  <li *ngFor="let cate of categories">
-    {{ cate | json }}
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>{{ cate.title }} <button mat-button [routerLink]="['/movie/', cate.name]"
-                                                 routerLinkActive="router-link-active">XEM TẤT CẢ</button>
-        </mat-card-title>
-        <mat-card-subtitle>Category</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="movie-in-category" *ngFor="let movie of cate.movies">
-          <h2>{{ movie.title }}</h2>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
+<nz-carousel nzAutoPlay>
+  <div nz-carousel-content *ngFor="let index of array">
+    <img src="{{ index }}" alt="index">
+  </div>
+</nz-carousel>
+<nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="{ rows: 24 }">
+  <div class="category-list" *ngFor="let cate of categories">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading">
+      <nz-card nzTitle="{{ cate?.title }}" [nzExtra]="extraTemplate">
+        <div class="row" nz-row>
+          <div class="movie" *ngFor="let movie of cate?.movies.slice(0, 6)" nz-col nzSpan="4"
+               [routerLink]="['./', cate?.name, movie?.slug]">
+            <nz-card nzHoverable [nzCover]="coverTemplate">
+              <nz-card-meta [nzTitle]="titleTemplate"></nz-card-meta>
+            </nz-card>
 
-      </mat-card-actions>
-    </mat-card>
-  </li>
-</ul>
+            <ng-template #titleTemplate>
+              <h5 nz-typography>{{ movie?.title }}</h5>
+            </ng-template>
+
+            <ng-template #coverTemplate>
+              <img alt="example" src="{{ movie?.imageSource }}" />
+            </ng-template>
+          </div>
+        </div>
+      </nz-card>
+      <ng-template #extraTemplate>
+        <button nz-button [routerLink]="['./', cate?.name]" nzType="text">Xem thêm</button>
+      </ng-template>
+    </nz-skeleton>
+  </div>
+</nz-skeleton>
+
+
+

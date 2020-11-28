@@ -1,1 +1,127 @@
-<p>create-movie works!</p>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create a movie" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <!--  Title-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Title</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="title" placeholder="Title of Movie" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your title!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--  Kind-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Kind</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="kind" placeholder="Some Kind" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input kind of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <!--  year-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Year</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="year" placeholder="Year" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input year of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--  category-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Category</nz-form-label>
+      <nz-tag
+        *ngFor="let tag of hotTags"
+        nzMode="checkable"
+        [nzChecked]="selectedTags.indexOf(tag) > -1"
+        (nzCheckedChange)="handleChange($event, tag)"
+      >
+        {{ tag.title }}
+      </nz-tag>
+    </nz-form-item>
+
+
+
+
+    <!--  Source-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Source</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="source" placeholder="Source of movie" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input source of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <!--  Poster-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Poster</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="poster" placeholder="poster of movie" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input poster of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--  imageSource-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Image Source</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="imageSource" placeholder="imageSource of movie" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input imageSource of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <!--  dateUpload-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Date Upload</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="dateUpload" placeholder="Upload Date of movie" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input Date Upload of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--  Description -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <textarea formControlName="description" nz-input rows="2" placeholder="write any thing"></textarea>
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input Description of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+</nz-modal>

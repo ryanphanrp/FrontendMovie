@@ -13,6 +13,12 @@ export class MovieCategoryComponent implements OnInit {
 
   public category: ICategory;
 
+  // custom layout from g-zorro
+  gridStyle = {
+    width: '25%',
+    textAlign: 'center'
+  };
+
   constructor(
     private movieService: MovieService,
     private activatedRoute: ActivatedRoute,

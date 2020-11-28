@@ -4,6 +4,9 @@ import { ProfileComponent } from './profile.component';
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 import { RoutingProfileModule } from './routing-profile.module';
+import {ChangePasswordComponent} from './change-password/change-password.component';
+import {AntModule} from '../_shared/shared/ant.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -11,11 +14,14 @@ import { RoutingProfileModule } from './routing-profile.module';
   declarations: [
     ProfileComponent,
     ProfileDetailComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
-    RoutingProfileModule
+    RoutingProfileModule,
+    AntModule,
+    ReactiveFormsModule
   ]
 })
 export class ProfileModule { }

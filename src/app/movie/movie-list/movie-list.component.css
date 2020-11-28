@@ -1,29 +1,78 @@
-.show {
-  border: 3px solid dodgerblue;
+.movie {
+  padding: 5px 5px;
+}
+
+::ng-deep .category-list {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.title-card {
+  background-color: #2c3e50;
+  border-radius: 10px;
+}
+
+::ng-deep .ant-card-head {
+  background-color: #2c3e50;
+  border-radius: 10px;
+}
+
+::ng-deep .ant-card-head-title {
+  color: white;
+}
+
+::ng-deep div.ant-card-extra > button > span {
+  color: white;
+}
+
+::ng-deep div.ant-card-cover > img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  overflow:hidden;
+}
+
+::ng-deep div.ant-card-cover {
+  max-height: 100%;
+  max-width: 100%;
+  height: 300px;
+}
+
+::ng-deep div.ant-card-cover > img {
+  object-fit: contain;
+}
+
+::ng-deep div.ant-card-body {
   padding: 10px 10px;
+  max-height: 100%;
+  max-width: 100%;
 }
 
-.phimle {
-  border: 1px solid limegreen;
+::ng-deep div.ant-card-body > div > div > nz-card {
+  border-radius: 7px;
 }
 
-.example-card {
-  width: 100%;
-  height: 400px;
-  margin: 20px 0px;
+
+[nz-carousel-content] {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+  margin-bottom: 2em;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+::ng-deep nz-carousel {
+  height: 320px;
+  line-height: 320px;
 }
 
-ul {
-  list-style: none;
-  padding: 20px 20px;
-}
-
-mat-card {
-  border: 2px solid limegreen;
+h3 {
+  color: #fff;
+  margin-bottom: 0;
 }
 

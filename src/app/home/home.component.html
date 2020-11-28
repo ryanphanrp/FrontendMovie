@@ -1,1 +1,11 @@
-<p>home works!</p>
+<p>Login: {{ isLoggedIn ? "YES" : "NO" }}</p>
+<p>AuthService: {{ authService.isAuthorized ? 'AUTH - YES' : 'AUTH - NO' }}</p>
+<nz-layout>
+  <app-navbar [isLogged]="isLoggedIn"></app-navbar>
+  <nz-layout>
+    <nz-layout class="inner-layout">
+      <router-outlet></router-outlet>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>
+

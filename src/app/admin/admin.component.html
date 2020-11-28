@@ -1,15 +1,42 @@
-<p>admin works!</p>
-<mat-grid-list cols="12">
-  <mat-grid-tile
-    [colspan]="3"
-    [rowspan]="3" class="left">
-      <button mat-raised-button color="warn" routerLink="user">User</button>
-      <button mat-raised-button color="warn" routerLink="movie">Movie</button>
-      <button mat-raised-button color="warn" routerLink="login">Login</button>
-  </mat-grid-tile>
-  <mat-grid-tile
-    [colspan]="9"
-    [rowspan]="3" class="right">
-      <router-outlet></router-outlet>
-  </mat-grid-tile>
-</mat-grid-list>
+<nz-layout class="layout">
+  <nz-sider [nzCollapsedWidth]="0" nzBreakpoint="lg" nzCollapsible>
+    <div class="logo">
+      <img alt="brand" src="./assets/brand.png">
+    </div>
+    <ul nz-menu nzMode="inline" nzTheme="dark">
+      <li nz-menu-item>
+        <i nz-icon nzType="user"></i>
+        <span><a routerLink="user">Quản lý người dùng</a></span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="video-camera"></i>
+        <span><a routerLink="movie">Quản lý phim</a></span>
+      </li>
+      <li nz-menu-item>
+        <i nz-icon nzType="video-camera"></i>
+        <span><a routerLink="category">Quản lý thể loại phim</a></span>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div nz-row>
+        <div nz-col nzSpan="16"></div>
+        <div nz-col nzSpan="8">
+          <div class="hi-admin">
+            <button (click)="logout()" nz-button nzDanger>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+
+
+

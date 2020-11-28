@@ -11,19 +11,10 @@ import {MovieListComponent} from './movie-list/movie-list.component';
 // Streaming Module
 import {PlyrModule} from 'ngx-plyr';
 import {MovieCategoryComponent} from './movie-category/movie-category.component';
+import {AntModule} from '../_shared/shared/ant.module';
+import { CommentComponent } from './comment/comment.component';
+import {FormsModule} from '@angular/forms';
 
-// Flex
-import { FlexLayoutModule } from '@angular/flex-layout';
-
-// Material Module
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-
-
-const materialModules = [
-  MatCardModule,
-  MatButtonModule
-];
 
 
 @NgModule({
@@ -31,15 +22,16 @@ const materialModules = [
     MovieComponent,
     MovieDetailComponent,
     MovieListComponent,
-    MovieCategoryComponent
+    MovieCategoryComponent,
+    CommentComponent
   ],
-  imports: [
-    CommonModule,
-    MovieRoutingModule,
-    FlexLayoutModule,
-    PlyrModule,
-    materialModules
-  ]
+    imports: [
+        CommonModule,
+        MovieRoutingModule,
+        PlyrModule,
+        AntModule,
+        FormsModule
+    ]
 })
 export class MovieModule {
 }

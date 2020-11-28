@@ -28,10 +28,19 @@ export class UserService {
     return of(this.users).pipe(delay(50));
   }
 
+  findUserByEmail(ID: string): Observable<IUser> {
+    const user = this.users.find(item => item.email === ID);
+    console.log(user);
+    if (user){
+      return of(user).pipe(delay(50));
+    }
+    return throwError(new Error('404 - User not found'));
+  }
+
   findUserByID(ID: string): Observable<IUser> {
     const user = this.users.find(item => item.username === ID);
     console.log(user);
-    if(user){
+    if (user){
       return of(user).pipe(delay(50));
     }
     return throwError(new Error('404 - User not found'));

@@ -1,0 +1,49 @@
+.login-form {
+  max-width: 300px;
+}
+
+.login-form-margin {
+  margin-bottom: 16px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}
+
+::ng-deep form > nz-form-item.ant-form-item.ant-row {
+  width: 100%;
+}
+
+.space-align-block {
+  height: 100%;
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("https://i.imgur.com/btFGI9t.jpg");
+
+  /* Add the blur effect */
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-admin {
+  padding: 1em 2em;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+

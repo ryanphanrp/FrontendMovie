@@ -1,22 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 // component
-import { AdminComponent } from './admin.component';
-import { LoginComponent } from './login/login.component';
-import {importExpr} from '@angular/compiler/src/output/output_ast';
+import {AdminComponent} from './admin.component';
+import {LoginComponent} from './login/login.component';
+import {AuthGuard} from '../_guards/auth.guard';
 
 
 const adminRoutes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate: [AuthGuard],
     children: [
-      {
-        path: 'login',
-        component: LoginComponent
-      },
       {
         path: 'movie',
         loadChildren: () => import('./admin-movie/admin-movie.module').then(m => m.AdminMovieModule)
@@ -25,7 +21,16 @@ const adminRoutes: Routes = [
         path: 'user',
         loadChildren: () => import('./admin-user/admin-user.module').then(m => m.AdminUserModule)
       }
+      ,
+      {
+        path: 'category',
+        loadChildren: () => import('./admin-category/admin-category.module').then(m => m.AdminCategoryModule)
+      }
     ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
@@ -35,4 +40,5 @@ const adminRoutes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AdminRoutingModule { }
+export class AdminRoutingModule {
+}

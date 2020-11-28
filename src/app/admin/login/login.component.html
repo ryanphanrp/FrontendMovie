@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="space-align-block">
+  <div class="login-admin">
+    <div><h2 nz-typography>Administrator</h2></div>
+
+    <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your username!">
+          <nz-input-group nzPrefixIcon="user">
+            <input formControlName="username" nz-input placeholder="Username" type="text"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input formControlName="password" nz-input placeholder="Password" type="password"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <button [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Log in</button>
+    </form>
+  </div>
+</div>

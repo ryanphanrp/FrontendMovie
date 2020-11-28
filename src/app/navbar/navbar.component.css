@@ -1,3 +1,27 @@
-.example-spacer {
-  flex: 1 1 auto;
+.logo {
+  width: 120px;
+  height: 37px;
+  float: left;
 }
+
+.header-menu {
+  line-height: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+button {
+  margin: 0 1em;
+}
+
+[nz-icon] {
+  margin-right: 20px;
+  font-size: 24px;
+}
+
+.example-input {
+  padding: 0 20px;
+}
+

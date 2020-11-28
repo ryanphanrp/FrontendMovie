@@ -1,15 +1,44 @@
-.movie-card {
-  margin: 20px 20px;
-  max-width: 70%;
-}
-
-.contain-movie {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-mat-card-content {
+.top-zone {
   padding: 1em;
+  background-color: #ffffff;
+}
+
+.bottom-zone {
+  padding: 1em;
+  background-color: #ffffff;
+}
+
+nz-sider {
+  padding: 1em;
+  background-color: #ffffff;
+  min-width: 100%;
+}
+
+::ng-deep .binh-luan {
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+::ng-deep .noi-dung-phim {
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+::ng-deep .thong-tin-phim {
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+::ng-deep .rating {
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+::ng-deep app-movie-detail > nz-layout.top-zone.ant-layout-has-sider.ant-layout.ant-row > nz-sider {
+  padding: 0px 10px;
 }
 

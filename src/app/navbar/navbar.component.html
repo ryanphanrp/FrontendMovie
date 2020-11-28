@@ -1,13 +1,32 @@
-<mat-toolbar color="accent">
-  <span>{{ title }}</span>
-  <span class="example-spacer"></span>
-  <a mat-button
-    color="white"
-    [routerLink]="['/home']"
-    routerLinkActive="{ exact: true }">Home</a>
-  <a mat-button color="white" routerLink="/login">Login</a>
-  <a mat-button color="white" routerLink="/register">Register</a>
-  <a mat-button color="white" routerLink="profile">Profile</a>
-  <a mat-button color="white" routerLink="movie">Movie</a>
-  <a mat-button color="white" routerLink="admin">Admin</a>
-</mat-toolbar>
+{{ isLogged ? 'nav - yes' : 'nav - no' }}
+<nz-header>
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <div class="logo"
+           [routerLink]="['/home']"
+           routerLinkActive="{ exact: true }">
+        <img src="../../assets/brand.png" alt="brand">
+      </div>
+    </div>
+    <div nz-col nzSpan="16">
+      <div class="header-menu" nz-menu nzMode="horizontal" nzTheme="dark">
+        <div class="header-menu logged" nz-menu nzMode="horizontal" nzTheme="dark" *ngIf="!isLogged">
+          <div nz-menu-item [routerLink]="['login']">Login</div>
+          <div nz-menu-item [routerLink]="['register']">Register</div>
+        </div>
+        <div class="header-menu not-logged" nz-menu nzMode="horizontal" nzTheme="dark" *ngIf="isLogged">
+          <div class="example-input">
+            <input placeholder="Tìm kiếm phim.." nz-input [(ngModel)]="inputValue" (ngModelChange)="onChange($event)" [nzAutocomplete]="auto" />
+            <nz-autocomplete #auto>
+              <nz-auto-option class="global-search-item" *ngFor="let option of options" [nzValue]="option.title">
+                <span [routerLink]="['./movie/', option?.category[0], option?.slug]">{{ option.title }}</span>
+              </nz-auto-option>
+            </nz-autocomplete>
+          </div>
+          <div nz-menu-item [routerLink]="['profile']">Profile</div>
+          <div ><button nz-button nzType="primary" (click)="logout()" nzDanger>Logout</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nz-header>

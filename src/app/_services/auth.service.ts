@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 const AUTH_API = 'http://localhost:3000/auth/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  headers: new HttpHeaders({'Content-Type': 'application/json'}),
 };
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  
   public isAuthorized = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login(payload): Observable<any> {
     return this.http.post(AUTH_API + 'login', {
@@ -28,7 +28,19 @@ export class AuthService {
     return this.http.post(AUTH_API + 'register', {
       email: payload.email,
       password: payload.password,
-      confirm_password: payload.confirm_password
+      confirm_password: payload.confirm
+    }, httpOptions);
+  }
+
+  resetPassword(payload): Observable<any> {
+    return this.http.post(AUTH_API + 'reset', {
+      email: payload.email
+    }, httpOptions);
+  }
+
+  changePassword(payload): Observable<any> {
+    return this.http.post(AUTH_API + 'changepassword', {
+      password: payload.password
     }, httpOptions);
   }
 

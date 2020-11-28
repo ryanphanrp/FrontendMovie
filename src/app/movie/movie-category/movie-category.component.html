@@ -1,23 +1,27 @@
-<mat-card class="movies">
-  <mat-card-header class="movies-header">
-    <mat-card-title>{{ category?.title }}</mat-card-title>
-    <mat-card-subtitle>Category</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="movies" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
-      <mat-card class="movie"
-                *ngFor="let movie of category?.movies"
-                [routerLink]="['/movie/', category?.name, movie?.slug]">
-        <mat-card-header class="movie-header">
-          <mat-card-title>{{ movie?.title }}</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image src="{{ movie?.imageSource }}" alt="{{ movie?.title }}">
-      </mat-card>
-    </div>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>PRE</button>
-    <button mat-button>NEXT</button>
-  </mat-card-actions>
-</mat-card>
+<nz-card class="movies" [nzTitle]="titleCategory">
+  <div nz-card-grid class="movie"
+       [ngStyle]="gridStyle"
+       [nzHoverable]="false"
+       *ngFor="let movie of category?.movies"
+       [routerLink]="['../', category?.name, movie?.slug]">
+
+    <nz-ribbon nzText="Rating">
+      <nz-card [nzHoverable]="false">
+        <nz-card [nzCover]="coverTemplate" nzHoverable>
+          <nz-card-meta [nzTitle]="titleTemplate"></nz-card-meta>
+        </nz-card>
+        <ng-template #titleTemplate>
+          <h4 nz-typography>{{ movie?.title }}</h4>
+        </ng-template>
+        <ng-template #coverTemplate>
+          <img alt="example" src="{{ movie?.imageSource }}"/>
+        </ng-template>
+      </nz-card>
+    </nz-ribbon>
+  </div>
+</nz-card>
+
+<ng-template #titleCategory>
+  <h3 nz-typography class="title-cate">{{ category?.title }}</h3>
+</ng-template>
 

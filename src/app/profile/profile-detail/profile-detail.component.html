@@ -1,7 +1,10 @@
 <p>profile-detail works!</p>
 <div class="detail">
     <h2>Hi, {{ user | json }}!</h2>
-    
+
 </div>
-<button [routerLink]="['/profile', user.username, 'edit']"
+<button [routerLink]="['./', 'edit']"
 routerLinkActive="router-link-active">Edit this Profile</button>
+<button (click)="showModalChangePassword()">Change Password</button>
+
+<app-change-password [isVisible]="isChangePassword"></app-change-password>

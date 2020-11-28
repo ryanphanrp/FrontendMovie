@@ -20,59 +20,7 @@ export class MovieService {
       Authorization: 'Bearer ' + this.tokenService.getToken()
     }),
   };
-  movie: IMovie[] = [
-    {
-      title: 'phim so 1',
-      _id: 'gsdfgerwerygdf',
-      slug: 'phimso1',
-      year: 2019,
-      kind: 'phimbo',
-      category: [
-        'phimngan',
-        'phimhoathinh',
-        'phimhaihuoc'
-      ],
-      description: 'Day la bo phim so 1',
-      source: ['https://drive.google.com/uc?export=download&id=19aldzZ1mWLlDB_6TISBpWTb9tlRG87La'],
-      poster: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      imageSource: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      dateUpload: '2020-10-04 23:11'
-    },
-    {
-      title: 'phim so 2',
-      _id: 'gsdfgersdgygdf',
-      slug: 'phimso2',
-      year: 2019,
-      kind: 'phimbo',
-      category: [
-        'phimngan',
-        'phimhoathinh',
-        'phimhaihuoc'
-      ],
-      description: 'Day la bo phim so 1',
-      source: ['https://drive.google.com/uc?export=download&id=19aldzZ1mWLlDB_6TISBpWTb9tlRG87La'],
-      poster: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      imageSource: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      dateUpload: '2020-10-04 23:11'
-    },
-    {
-      title: 'phim so 3',
-      _id: 'gsdfger75675df',
-      slug: 'phimso3',
-      year: 2019,
-      kind: 'phimbo',
-      category: [
-        'phimngan',
-        'phimhoathinh',
-        'phimhaihuoc'
-      ],
-      description: 'Day la bo phim so 1',
-      source: ['https://drive.google.com/uc?export=download&id=19aldzZ1mWLlDB_6TISBpWTb9tlRG87La'],
-      poster: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      imageSource: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-21a1c803fe4ff4b858de24f5c91ec57f_screen.jpg?ts=1574144362',
-      dateUpload: '2020-10-04 23:11'
-    }
-  ];
+
   private movies: IMovie[];
 
   constructor(
@@ -88,16 +36,28 @@ export class MovieService {
   }
 
   getCates(): Observable<ICategory[] | any> {
-    return this.http.get<ICategory[]>('https://my-json-server.typicode.com/changcomchien/APIjson/category', this.httpOptions)
-      .pipe(map(cates => {
-        cates.map(ele => this.getMoviesByCategory(ele.name).subscribe(data => ele = data));
-        console.log('Test: ');
-        console.log(cates);
-        return cates;
-        }
-      ));
+    return this.getCategories().pipe(
+      switchMap(cates => {
+        return forkJoin(cates.map(cate => this.getMoviesByCategory(cate.name)));
+      })
+    );
   }
 
+  demo(): Observable<ICategory[] | any> {
+    return this.getCategories().pipe(map( categories => {
+      return categories.map(category => this.getMoviesByCategory(category.name));
+    }));
+  }
+
+  getMoviesByCategory(name: string): Observable<ICategory | undefined> {
+    return forkJoin(this.getMoviesByCategoryAPI(name), this.getACategory(name)).pipe(
+      map(([movies, cate]) => {
+        cate.movies = movies;
+        console.log(cate);
+        return cate;
+      })
+    );
+  }
 
   // get a category from categories
   getACategory(name: string): Observable<ICategory | undefined> {
@@ -113,18 +73,6 @@ export class MovieService {
   // get phim theo category tu server
   getMoviesByCategoryAPI(name: string): Observable<IMovie[] | undefined> {
     return this.http.get<IMovie[]>(this.BASE_URL + 'movie/categories/' + name, this.httpOptions).pipe(delay(50));
-  }
-
-
-  // cần sửa bên backend cai get se tra ve category
-  getMoviesByCategory(name: string): Observable<ICategory | undefined> {
-    return forkJoin(this.getMoviesByCategoryAPI(name), this.getACategory(name)).pipe(
-      map(([movies, cate]) => {
-        cate.movies = movies;
-        console.log(cate);
-        return cate;
-      })
-    );
   }
 
 
@@ -145,7 +93,11 @@ export class MovieService {
   }
 
   findMovieBySlug(slug: string): Observable<IMovie | undefined> {
-    return this.http.get<IMovie>(this.BASE_URL + 'movie/phim/' + slug, this.httpOptions).pipe(delay(50));
+    return this.http.get<IMovie>(this.BASE_URL + 'movie/watch/' + slug, this.httpOptions).pipe(delay(50));
+  }
+
+  searchMovie(slug: string): Observable<IMovie[] | undefined> {
+    return this.http.get<IMovie[]>(this.BASE_URL + 'movie/search/?search=' + slug, this.httpOptions).pipe(delay(50));
   }
 
 }

@@ -4,7 +4,7 @@
 <div class="container">
     <ul>
         <li *ngFor="let user of userList">
-            <a [routerLink]="['/profile', user.username]"
+            <a [routerLink]="['../', user.username]"
             routerLinkActive="router-link-active">{{ user.username }}</a>
         </li>
     </ul>
