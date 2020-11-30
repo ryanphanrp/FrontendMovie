@@ -1,1 +1,18 @@
-<p>profile-edit works!</p>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Thay đổi thông tin người dùng" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Nick Name</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="nickname" placeholder="Nhập vào Nick name mới của bạn" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input your nick name!
+          </ng-container>
+          <ng-container *ngIf="control.hasError('duplicated')">
+            The nickname is redundant!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

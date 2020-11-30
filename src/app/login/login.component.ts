@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.authService.isAuthorized = true;
         this.createNotification('success', 'SUCCESS', 'Login thanh cong se tu dong chuyen huong');
-        this.router.navigateByUrl('home/movie');
+        this.router.navigateByUrl('/movie');
       },
       err => {
         this.createNotification('error', 'ERROR', err.error.message);

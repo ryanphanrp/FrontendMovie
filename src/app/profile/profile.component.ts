@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../_services/user.service';
-import { IUser } from '../_shared/User';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../_services/user.service';
+import {IUser} from '../_shared/User';
+import {NzDescriptionsSize} from 'ng-zorro-antd/descriptions';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,20 +11,40 @@ import { IUser } from '../_shared/User';
 })
 export class ProfileComponent implements OnInit {
 
-  userList: IUser[];
+  currentUser: IUser;
+  isVisible = false;
+  isVisibleInfo = false;
+  size: NzDescriptionsSize = 'default';
 
-  constructor(
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute
-  ) { }
+
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(item => this.userList = item);
-    this.activatedRoute.queryParamMap.subscribe(
-      query => {
-        const orderBy = query.get('orderby');
+    this.userService.getInformation().subscribe(
+      data => {
+        this.currentUser = data;
+      },
+      error => {
+        console.log(error.error.message);
       }
-    )
+    );
+  }
+
+  showChangePassword(): void {
+    this.isVisible = true;
+  }
+
+  showChangeInfo(): void {
+    this.isVisibleInfo = true;
+  }
+
+  payment(): void {
+    this.userService.createPayment().subscribe(
+      data => {
+        window.open(data.data, '_blank');
+      }
+    );
   }
 
 }

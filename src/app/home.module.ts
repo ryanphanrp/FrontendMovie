@@ -10,7 +10,7 @@ import {AntModule} from './_shared/shared/ant.module';
 import {HomeRoutingModule} from './home-routing.module';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
-import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 
 
@@ -20,7 +20,8 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ForgotpasswordComponent
   ],
   imports: [
     CommonModule,

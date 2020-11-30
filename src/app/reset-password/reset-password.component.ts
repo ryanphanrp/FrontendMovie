@@ -23,6 +23,9 @@ export class ResetPasswordComponent implements OnInit {
     this.authService.resetPassword(value).subscribe(
       data => {
         this.notification.create('success', 'SUCCESS', 'Please Check your mail!!!');
+        setTimeout(() => {
+          this.isVisible = false;
+        }, 100);
       },
       err => {
         this.notification.create('error', 'ERROR', err.error.message);

@@ -26,7 +26,7 @@ const homeRoutes: Routes = [
       },
       {
         path: 'movie',
-        //canActivate: [AuthGuard],
+        canActivate: [AuthGuard],
         loadChildren: () => import('./movie/movie.module').then(m => m.MovieModule)
       }
     ],

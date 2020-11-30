@@ -1,12 +1,55 @@
-<p>profile works!</p>
-<p>Parent works!</p>
-
 <div class="container">
-    <ul>
-        <li *ngFor="let user of userList">
-            <a [routerLink]="['../', user.username]"
-            routerLinkActive="router-link-active">{{ user.username }}</a>
-        </li>
-    </ul>
-    <router-outlet></router-outlet>
+
+  <div nz-row>
+    <div nz-col class="profile-span" nzSpan="16">
+      <h4 nz-typography>Thông tin người dùng</h4>
+    </div>
+    <div nz-col nzSpan="8">
+      <button nz-button nzType="primary"
+                                   (click)="showChangeInfo()"
+                                   nzShape="round">Chỉnh sửa thông tin</button>
+      <button nz-button nzType="primary"
+                                   (click)="showChangePassword()"
+                                   nzShape="round"
+                                   nzDanger>Đổi mật khẩu</button>
+    </div>
+  </div>
+  <nz-descriptions nzTitle="" [nzSize]="size" nzBordered>
+    <nz-descriptions-item nzTitle="Nick Name" [nzSpan]="3">
+      {{ currentUser.nickname }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Email" [nzSpan]="2">
+      {{ currentUser.email }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Ngày tạo">
+      {{ currentUser.dateCreate }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Gói">
+      Thành Viên VIP
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Status">
+      <nz-badge nzStatus="success" nzText="Đang kích hoạt"></nz-badge>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Hạn sử dụng">
+      {{ currentUser.plan }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Config Info">
+      Data disk type: MongoDB
+      <br />
+      Database version: 3.4
+      <br />
+      Package: dds.mongo.mid
+      <br />
+      Storage space: 10 GB
+      <br />
+      <button (click)="payment()">Gia hạn</button>
+      <br />
+      Region: East China 1<br />
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <ng-template #extraTpl>
+    <button nz-button nzType="primary">Edit</button>
+  </ng-template>
 </div>
+<app-change-password [isVisible]="isVisible"></app-change-password>
+<app-profile-edit [isVisible]="isVisibleInfo"></app-profile-edit>

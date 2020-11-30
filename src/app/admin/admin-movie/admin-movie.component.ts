@@ -64,17 +64,4 @@ export class AdminMovieComponent implements OnInit {
   showCreate(): void {
     this.isCreate = true;
   }
-
-  _handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isCreate = false;
-      this.isOkLoading = false;
-    }, 3000);
-  }
-
-  _handleCancel(): void {
-    this.isCreate = false;
-  }
-
 }

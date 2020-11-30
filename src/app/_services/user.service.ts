@@ -1,48 +1,36 @@
-import { Injectable } from '@angular/core';
-import { Observable, throwError, of } from 'rxjs';
-import { IUser } from '../_shared/User';
-import { delay } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {delay} from 'rxjs/operators';
+import {IUser} from '../_shared/user';
+
+const BASE_URL = 'http://localhost:3000/';
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'}),
+};
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
-  private users: IUser[] = [
-    {
-      username: 'tinhtute',
-      email: 'therealtinhtute@gmail.com',
-      password: '12345678',
-      plan: 'premium'
-    },
-    {
-      username: 'changcomchien',
-      email: 'changcomchien@gmail.com',
-      password: '12345678',
-      plan: 'basic'
-    }
-  ];
-  constructor() { }
-
-  getUsers(): Observable<IUser[]> {
-    return of(this.users).pipe(delay(50));
+  constructor(private http: HttpClient) {
   }
 
-  findUserByEmail(ID: string): Observable<IUser> {
-    const user = this.users.find(item => item.email === ID);
-    console.log(user);
-    if (user){
-      return of(user).pipe(delay(50));
-    }
-    return throwError(new Error('404 - User not found'));
+  getInformation(): Observable<any> {
+    return this.http.get<IUser>(BASE_URL + 'users/information', httpOptions).pipe(delay(50));
   }
 
-  findUserByID(ID: string): Observable<IUser> {
-    const user = this.users.find(item => item.username === ID);
-    console.log(user);
-    if (user){
-      return of(user).pipe(delay(50));
-    }
-    return throwError(new Error('404 - User not found'));
+  updateInformation(payload): Observable<any> {
+    return this.http.post(BASE_URL + 'users/updateinfor', {
+      nickName: payload.userName
+    }, httpOptions).pipe(delay(50));
   }
+
+  createPayment(): Observable<any> {
+    return this.http.get<any>(BASE_URL + 'payment/create_payment', httpOptions).pipe(delay(50));
+  }
+
 }

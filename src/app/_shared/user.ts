@@ -1,6 +1,7 @@
 export interface IUser {
-  username: string;
+  nickname: string;
   email: string;
   password: string;
   plan: string;
+  dateCreate: string;
 }

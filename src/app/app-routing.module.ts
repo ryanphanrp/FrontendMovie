@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
+import {ForgotpasswordComponent} from './forgotpassword/forgotpassword.component';
 
 
 const routes: Routes = [
@@ -9,13 +10,12 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./home.module').then(m => m.HomeModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'forgotpassword/:token',
+    component: ForgotpasswordComponent
   },
   {
     path: '**',
@@ -24,9 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules
-  })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

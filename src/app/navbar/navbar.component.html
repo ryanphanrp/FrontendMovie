@@ -1,10 +1,7 @@
-{{ isLogged ? 'nav - yes' : 'nav - no' }}
 <nz-header>
   <div nz-row>
     <div nz-col nzSpan="8">
-      <div class="logo"
-           [routerLink]="['/home']"
-           routerLinkActive="{ exact: true }">
+      <div class="logo" (click)="directHome()">
         <img src="../../assets/brand.png" alt="brand">
       </div>
     </div>

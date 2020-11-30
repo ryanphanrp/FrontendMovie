@@ -31,7 +31,7 @@ export class MovieService {
 
   // get categories from API
   getCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>('https://my-json-server.typicode.com/changcomchien/APIjson/category', this.httpOptions)
+    return this.http.get<ICategory[]>(this.BASE_URL + 'movie/categories/getcategories', this.httpOptions)
       .pipe(delay(50));
   }
 
@@ -98,6 +98,19 @@ export class MovieService {
 
   searchMovie(slug: string): Observable<IMovie[] | undefined> {
     return this.http.get<IMovie[]>(this.BASE_URL + 'movie/search/?search=' + slug, this.httpOptions).pipe(delay(50));
+  }
+
+  addComment(payload): Observable<any> {
+    return  this.http.post(this.BASE_URL + 'movie/comment/create', {
+      movie_id: payload.movieID,
+      comment: payload.comment
+    }, this.httpOptions).pipe(delay(50));
+  }
+
+  getComment(payload): Observable<any> {
+    return  this.http.post(this.BASE_URL + 'movie/comment/get', {
+      movie_id: payload.movieID,
+    }, this.httpOptions).pipe(delay(50));
   }
 
 }

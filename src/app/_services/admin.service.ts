@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {delay} from 'rxjs/operators';
-import {IMovie} from '../_shared/movie';
+import {ICategory, IMovie} from '../_shared/movie';
 
 const AUTH_API = 'http://localhost:3000/admin/';
 
@@ -21,7 +21,7 @@ export class AdminService {
   }
 
   login(payload): Observable<any> {
-    return this.http.post('http://localhost:3000/auth/login', {
+    return this.http.post(AUTH_API + 'login', {
       email: payload.username,
       password: payload.password
     }, httpOptions);
@@ -65,7 +65,7 @@ export class AdminService {
   }
 
   crawlMovie(): void {
-    console.log('dit me may');
+    console.log('test');
   }
 
   deleteMovie(chuoiid: string): Observable<any> {
@@ -73,6 +73,18 @@ export class AdminService {
     return this.http.post(AUTH_API + 'deleteMovie', {
       id: chuoiid
     }, httpOptions);
+  }
+
+  createCategory(payload): Observable<any> {
+    return this.http.post(AUTH_API + 'categories/add', {
+      Category: payload.category
+    }, httpOptions);
+  }
+
+  // get categories from API
+  getCategories(): Observable<ICategory[] | undefined> {
+    return this.http.get<ICategory[]>(AUTH_API + 'categories/getcategories', httpOptions)
+      .pipe(delay(50));
   }
 
 }

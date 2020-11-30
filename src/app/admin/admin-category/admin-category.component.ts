@@ -36,7 +36,7 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.movieService.getCategories().subscribe(
+    this.adminService.getCategories().subscribe(
       data => {
         this.listOfData = data;
       }
@@ -57,23 +57,9 @@ export class AdminCategoryComponent implements OnInit {
     }, 3000);
   }
 
-
-
   // Create Movie
   showCreate(): void {
     this.isCreate = true;
-  }
-
-  _handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isCreate = false;
-      this.isOkLoading = false;
-    }, 3000);
-  }
-
-  _handleCancel(): void {
-    this.isCreate = false;
   }
 
 }

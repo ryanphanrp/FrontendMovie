@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {TokenService} from '../_services/token.service';
 import {AuthService} from '../_services/auth.service';
 import {Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {IMovie} from '../_shared/movie';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnChanges {
 
   @Input() isLogged: boolean;
   inputValue?: string;
@@ -34,12 +34,30 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const key = 'isLogged';
+    if (changes[key]) {
+      this.isLogged = changes.isLogged.currentValue;
+    }
+  }
+
   ngOnInit(): void {
+  }
+
+  directHome(): void {
+    if (this.tokenService.getToken()) {
+      this.router.navigate(['/movie']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   // logout
   logout(): void {
     this.tokenService.logOut();
-    window.location.reload();
+    this.router.navigate(['/login']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 50);
   }
 }

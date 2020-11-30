@@ -26,6 +26,7 @@ export class AuthService {
 
   register(payload): Observable<any> {
     return this.http.post(AUTH_API + 'register', {
+      nickname: payload.nickname,
       email: payload.email,
       password: payload.password,
       confirm_password: payload.confirm
@@ -35,6 +36,14 @@ export class AuthService {
   resetPassword(payload): Observable<any> {
     return this.http.post(AUTH_API + 'reset', {
       email: payload.email
+    }, httpOptions);
+  }
+
+  newPassword(payload): Observable<any> {
+    console.log(payload);
+    return this.http.post(AUTH_API + 'newpassword', {
+      token: payload.token,
+      password: payload.password
     }, httpOptions);
   }
 

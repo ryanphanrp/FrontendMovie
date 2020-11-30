@@ -1,0 +1,13 @@
+.profile-span {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin: 0 5px;
+}
+
+.container {
+  padding: 2em;
+}

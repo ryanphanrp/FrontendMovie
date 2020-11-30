@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {AntModule} from './_shared/shared/ant.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -27,6 +28,9 @@ import {AntModule} from './_shared/shared/ant.module';
     BrowserAnimationsModule,
     SharedModule.forRoot(),
     AntModule,
+
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

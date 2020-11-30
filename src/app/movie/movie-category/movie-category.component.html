@@ -1,23 +1,24 @@
 <nz-card class="movies" [nzTitle]="titleCategory">
-  <div nz-card-grid class="movie"
-       [ngStyle]="gridStyle"
-       [nzHoverable]="false"
-       *ngFor="let movie of category?.movies"
-       [routerLink]="['../', category?.name, movie?.slug]">
+  <div class="row">
+    <div class="col-3 movie"
+         [ngStyle]="gridStyle"
+         *ngFor="let movie of category?.movies"
+         [routerLink]="['../', category?.name, movie?.slug]">
 
-    <nz-ribbon nzText="Rating">
-      <nz-card [nzHoverable]="false">
-        <nz-card [nzCover]="coverTemplate" nzHoverable>
-          <nz-card-meta [nzTitle]="titleTemplate"></nz-card-meta>
+      <nz-ribbon nzText="Rating">
+        <nz-card [nzHoverable]="false">
+          <nz-card [nzCover]="coverTemplate" nzHoverable>
+            <nz-card-meta [nzTitle]="titleTemplate"></nz-card-meta>
+          </nz-card>
+          <ng-template #titleTemplate>
+            <h4 nz-typography>{{ movie?.title }}</h4>
+          </ng-template>
+          <ng-template #coverTemplate>
+            <img alt="example" src="{{ movie?.imageSource }}"/>
+          </ng-template>
         </nz-card>
-        <ng-template #titleTemplate>
-          <h4 nz-typography>{{ movie?.title }}</h4>
-        </ng-template>
-        <ng-template #coverTemplate>
-          <img alt="example" src="{{ movie?.imageSource }}"/>
-        </ng-template>
-      </nz-card>
-    </nz-ribbon>
+      </nz-ribbon>
+    </div>
   </div>
 </nz-card>
 

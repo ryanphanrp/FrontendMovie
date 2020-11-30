@@ -37,6 +37,9 @@ export class ChangePasswordComponent implements OnInit {
     this.authService.changePassword(payload).subscribe(
       data => {
         this.notification.create('success', 'SUCCESS', 'Change Password Successful!!!');
+        setTimeout(() => {
+          this.isVisible = false;
+        }, 100);
       },
       err => {
         this.notification.create('error', 'ERROR', err.error.message);
@@ -80,6 +83,5 @@ export class ChangePasswordComponent implements OnInit {
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
-
 
 }

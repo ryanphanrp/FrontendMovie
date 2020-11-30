@@ -5,6 +5,7 @@ import {AuthService} from '../_services/auth.service';
 import {TokenService} from '../_services/token.service';
 import {Router} from '@angular/router';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {UserService} from '../_services/user.service';
 
 
 @Component({
@@ -42,14 +43,15 @@ export class RegisterComponent implements OnInit {
 
 
   // Submit
-  submitForm(value: { username: string; email: string; password: string; confirm: string }): void {
+  submitForm(value: { nickname: string; email: string; password: string; confirm: string }): void {
     console.log(value);
     this.authService.register(value).subscribe(
       data => {
-        this.createNotification('success', 'SUCCESS', 'Register Successful!!!');
+        this.notification.create('success', 'SUCCESS', 'Register Successful!!!');
+        this.router.navigate(['/login']);
       },
       err => {
-        this.createNotification('error', 'ERROR', err.error.message);
+        this.notification.create('error', 'ERROR', err.error.message);
       }
     );
   }
@@ -101,10 +103,4 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // Create Notification when submit
-  createNotification(type: string, title: string, body: string): void {
-    this.notification.create(type, title, body);
-  }
-
 }
