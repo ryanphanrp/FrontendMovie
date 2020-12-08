@@ -1,0 +1,26 @@
+<nz-table #adminpayment nzBordered [nzData]="listOfData">
+  <thead>
+  <tr nz-row>
+    <th nz-col nzSpan="4">ID</th>
+    <th nz-col nzSpan="4">Email</th>
+    <th nz-col nzSpan="4">Số tiền</th>
+    <th nz-col nzSpan="4">Gói tháng</th>
+    <th nz-col nzSpan="4">Trạng thái</th>
+    <th nz-col nzSpan="4">Hành động</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of adminpayment.data" class="editable-row" nz-row>
+    <th nz-col nzSpan="4">{{ data.payment_id }}</th>
+    <th nz-col nzSpan="4">{{ data.email }}</th>
+    <th nz-col nzSpan="4">{{ data.amount }}</th>
+    <th nz-col nzSpan="4">{{ data.month }}</th>
+    <th nz-col nzSpan="4">{{ data.status }}</th>
+    <td nz-col nzSpan="4">
+      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data._id)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+

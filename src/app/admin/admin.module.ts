@@ -5,12 +5,13 @@ import { AdminComponent } from './admin.component';
 import {AntModule} from '../_shared/shared/ant.module';
 import {LoginComponent} from './login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { AdminPaymentComponent } from './admin-payment/admin-payment.component';
 
 
 
 
 @NgModule({
-  declarations: [AdminComponent, LoginComponent],
+  declarations: [AdminComponent, LoginComponent, AdminPaymentComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

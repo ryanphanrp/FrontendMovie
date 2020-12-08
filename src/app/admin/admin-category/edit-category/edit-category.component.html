@@ -1,1 +1,19 @@
-<p>edit-category works!</p>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Cập nhật thể loại phim mới" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm(validateForm.value)">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+    <!--  Kind-->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Thể loại</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="category" placeholder="Nhập vào tên thể loại phim mới" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input kind of movie!
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</nz-modal>

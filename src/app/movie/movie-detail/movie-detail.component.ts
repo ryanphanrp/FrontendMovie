@@ -19,6 +19,7 @@ export class MovieDetailComponent implements OnInit {
   public movie: IMovie;
   public player;
   public category: ICategory;
+  listCategory: ICategory[];
 
   // Rating
   tooltips = ['dở tệ', 'không hay', 'bình thường', 'hay!', 'tuyệt vời!'];
@@ -35,7 +36,17 @@ export class MovieDetailComponent implements OnInit {
     this.activatedRoute.paramMap.pipe(
       map(pramas => pramas.get('slug')),
       switchMap(slug => this.movieService.findMovieBySlug(slug))
-    ).subscribe(item => this.movie = item );
+    ).subscribe(item => {
+      this.movie = item;
+      this.movieService.getCategories().pipe(map(
+        ele => ele.filter(
+          val => this.movie.category.includes(val.name)
+        )
+      )).subscribe(data => this.listCategory = data);
+      this.movieService.getMoviesByCategory(item.category[0]).subscribe(
+        data => this.category = data
+      );
+    });
 
     // player
     this.player = new Plyr('#plyrID', {
@@ -59,9 +70,6 @@ export class MovieDetailComponent implements OnInit {
         'fullscreen' // Toggle fullscreen
       ]
     });
-    this.movieService.getMoviesByCategory(this.movie.category[0]).subscribe(
-      data => this.category = data
-    );
   }
 
 }

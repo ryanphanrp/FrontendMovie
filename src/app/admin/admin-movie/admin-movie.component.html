@@ -2,14 +2,13 @@
 <br />
 <br />
 
-
 <nz-table #adminmovie nzBordered [nzData]="listOfData">
   <thead>
   <tr nz-row>
-    <th nz-col nzSpan="8">Title</th>
+    <th nz-col nzSpan="8">Tiêu đề</th>
     <th nz-col nzSpan="4">Poster</th>
-    <th nz-col nzSpan="8">Category</th>
-    <th nz-col nzSpan="4">Action</th>
+    <th nz-col nzSpan="8">Slug</th>
+    <th nz-col nzSpan="4">Hành động</th>
   </tr>
   </thead>
   <tbody>
@@ -17,9 +16,9 @@
     <td nz-col nzSpan="8">{{ data.title }}</td>
     <td nz-col nzSpan="4">
       <img style="max-height: 100px;" src="{{ data.poster }}" alt="{{ data.title }}"></td>
-    <td nz-col nzSpan="8">{{ data._id }} | {{ data.slug }}</td>
+    <td nz-col nzSpan="8">{{ data.slug }}</td>
     <td nz-col nzSpan="4">
-      <a (click)="showEdit(data.slug)">Edit</a> |
+      <a (click)="showEdit(data)">Edit</a> |
       <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data._id)">Delete</a>
     </td>
   </tr>
@@ -27,6 +26,6 @@
 </nz-table>
 
 
-<app-edit-movie [slug]="slug" [isVisible]="isEdit"></app-edit-movie>
-<app-create-movie [isVisible]="isCreate"></app-create-movie>
+<app-edit-movie [movie]="itemToEdit" [isVisible]="isEdit" (isHide)="hideEdit($event)"></app-edit-movie>
+<app-create-movie [isVisible]="isCreate" (isHide)="hideCreate($event)"></app-create-movie>
 

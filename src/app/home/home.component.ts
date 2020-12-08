@@ -18,8 +18,7 @@ import {AuthService} from '../_services/auth.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, DoCheck, AfterViewInit,
-  AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy, OnChanges {
+export class HomeComponent implements OnInit, DoCheck {
 
   isLoggedIn = false;
 
@@ -45,38 +44,13 @@ export class HomeComponent implements OnInit, DoCheck, AfterViewInit,
     }
   }
 
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit - TINHTUTE');
-  }
-
-  ngOnChanges(): void {
-    console.log('ngDoCheck - TINHTUTE');
-  }
-
 
   ngDoCheck(): void {
-    console.log('ngDoCheck - -------------------------------');
     if (this.tokenService.getToken()) {
       this.isLoggedIn = true;
     } else {
       this.isLoggedIn = false;
     }
-  }
-
-  ngAfterContentInit(): void {
-    console.log('ngAfterContentInit - ***************************************');
-  }
-
-  ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked - -------------------------------');
-  }
-
-  ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked - ----------------------------');
-  }
-
-  ngOnDestroy(): void {
-    console.log('ngOnDestroy - TINHTUTE');
   }
 
 }

@@ -3,22 +3,21 @@ import {IMovie} from '../../_shared/movie';
 import {MovieService} from '../../_services/movie.service';
 import {AdminService} from '../../_services/admin.service';
 
-
 @Component({
-  selector: 'app-admin-movie',
-  templateUrl: './admin-movie.component.html',
-  styleUrls: ['./admin-movie.component.css']
+  selector: 'app-admin-payment',
+  templateUrl: './admin-payment.component.html',
+  styleUrls: ['./admin-payment.component.css']
 })
-export class AdminMovieComponent implements OnInit {
+export class AdminPaymentComponent implements OnInit {
 
   i = 0;
   editId: string | null = null;
-  listOfData: IMovie[] = [];
+  listOfData: any[] = [];
 
   // for edit
   isEdit = false;
   isOkLoading = false;
-  itemToEdit: IMovie;
+  slug: string;
 
   // for create
   isCreate = false;
@@ -29,36 +28,26 @@ export class AdminMovieComponent implements OnInit {
   }
 
   deleteRow(id: string): void {
-    this.adminService.deleteMovie(id).subscribe(data => {
+    this.adminService.deletePayment(id).subscribe(data => {
       console.log('xoa thanh cong');
       this.listOfData = this.listOfData.filter(d => d._id !== id);
     });
   }
 
   ngOnInit(): void {
-    this.adminService.getMovies().subscribe(
+    this.adminService.getPaymentList().subscribe(
       data => {
         this.listOfData = data;
       }
     );
   }
 
-  // Edit Movie
-  showEdit(data: IMovie): void {
-    this.itemToEdit = data;
-    this.isEdit = true;
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isEdit = false;
+      this.isOkLoading = false;
+    }, 3000);
   }
 
-  hideEdit(isHide: boolean): void {
-    this.isEdit = false;
-  }
-
-  // Create Movie
-  showCreate(): void {
-    this.isCreate = true;
-  }
-
-  hideCreate(isHide: boolean): void {
-    this.isCreate = false;
-  }
 }

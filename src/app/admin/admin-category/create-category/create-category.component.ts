@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ICategory} from '../../../_shared/movie';
 import {AuthService} from '../../../_services/auth.service';
@@ -16,6 +16,7 @@ export class CreateCategoryComponent implements OnInit {
 
   validateForm: FormGroup;
   @Input() isVisible = false;
+  @Output() isHide = new EventEmitter<boolean>();
 
   hotTags: ICategory[] = [];
   selectedTags: ICategory[] = [];
@@ -39,10 +40,13 @@ export class CreateCategoryComponent implements OnInit {
   submitForm(value: {
     category: string,
   }): void {
-    this.adminService.createMovie(value).subscribe(data => {
+    this.adminService.createCategory(value).subscribe(
+      data => {
         this.notification.create('success', 'SUCCESS', 'Thêm thể loại thành công!');
         setTimeout(() => {
           this.isVisible = false;
+          this.isHide.emit(false);
+          window.location.reload();
         }, 150);
       },
       err => {
@@ -55,6 +59,7 @@ export class CreateCategoryComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.isHide.emit(false);
   }
 
 }

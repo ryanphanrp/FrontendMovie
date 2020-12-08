@@ -29,9 +29,9 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   deleteRow(id: string): void {
-    this.adminService.deleteMovie(id).subscribe(data => {
+    this.adminService.deleteCategory(id).subscribe(data => {
       console.log('xoa thanh cong');
-      this.listOfData = this.listOfData.filter(d => d.name !== id);
+      this.listOfData = this.listOfData.filter(d => d.id !== id);
     });
   }
 
@@ -44,22 +44,22 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   // Edit Movie
-  showEdit(slug: string): void {
-    this.slug = slug;
+  showEdit(data: ICategory): void {
+    this.itemToEdit = data;
     this.isEdit = true;
   }
 
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isEdit = false;
-      this.isOkLoading = false;
-    }, 3000);
+  hideEdit(isHide: boolean): void {
+    this.isEdit = false;
   }
 
   // Create Movie
   showCreate(): void {
     this.isCreate = true;
+  }
+
+  hideCreate(isHide: boolean): void {
+    this.isCreate = false;
   }
 
 }

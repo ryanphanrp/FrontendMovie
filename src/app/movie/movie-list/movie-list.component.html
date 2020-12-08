@@ -6,7 +6,7 @@
 <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="{ rows: 24 }">
   <div class="category-list" *ngFor="let cate of categories">
     <nz-skeleton [nzActive]="true" [nzLoading]="loading">
-      <nz-card nzTitle="{{ cate?.title }}" [nzExtra]="extraTemplate">
+      <nz-card nzTitle="{{ cate?.title }}" [nzExtra]="extraTemplate" *ngIf="cate?.movies?.length">
         <div class="row" nz-row>
           <div class="movie" *ngFor="let movie of cate?.movies.slice(0, 6)" nz-col nzSpan="4"
                [routerLink]="['./', cate?.name, movie?.slug]">

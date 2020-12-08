@@ -33,4 +33,9 @@ export class UserService {
     return this.http.get<any>(BASE_URL + 'payment/create_payment', httpOptions).pipe(delay(50));
   }
 
+  returnPayment(query: string): Observable<any> {
+    console.log(query);
+    return this.http.get<any>(BASE_URL + 'payment/vnpay_ipn?' + query, httpOptions).pipe(delay(50));
+  }
+
 }

@@ -14,19 +14,20 @@
     <nz-content>
       <nz-card nzTitle="Thông tin phim" class="thong-tin-phim">
         <p><strong>Năm: </strong>{{ movie?.year }}</p>
-        <p><strong>Thể loại: </strong>{{ movie?.category }}</p>
+        <p><strong>Thể loại: </strong> <span *ngFor="let cat of listCategory">{{ cat?.title }}, </span>
+        </p>
         <p><strong>Loại: </strong>{{ movie?.kind }}</p>
         <p><strong>Ngày tải lên: </strong>{{ movie?.dateUpload }}</p>
       </nz-card>
     </nz-content>
     <nz-content>
-      <nz-card nzTitle="Bình chọn cho phim" class="rating">
-        <div style="padding: 1em;">
-          <nz-rate [(ngModel)]="value" [nzTooltips]="tooltips"></nz-rate>
-          <span *ngIf="value" class="ant-rate-text">{{ value ? tooltips[value - 1] : '' }}</span>
-          <p><strong nz-typography>Bạn đã bình chọn: </strong>{{tooltips[value - 1]}}</p>
-        </div>
-      </nz-card>
+<!--      <nz-card nzTitle="Bình chọn cho phim" class="rating">-->
+<!--        <div style="padding: 1em;">-->
+<!--          <nz-rate [(ngModel)]="value" [nzTooltips]="tooltips"></nz-rate>-->
+<!--          <span *ngIf="value" class="ant-rate-text">{{ value ? tooltips[value - 1] : '' }}</span>-->
+<!--          <p><strong nz-typography>Bạn đã bình chọn: </strong>{{tooltips[value - 1]}}</p>-->
+<!--        </div>-->
+<!--      </nz-card>-->
     </nz-content>
   </nz-sider>
 </nz-layout>
@@ -44,7 +45,7 @@
     </nz-content>
     <nz-content>
       <nz-card class="binh-luan" nzTitle="Bình luận về phim này">
-        <app-comment [movieID]="movie._id"></app-comment>
+        <app-comment [movieID]="movie?._id"></app-comment>
       </nz-card>
     </nz-content>
   </nz-content>
@@ -52,9 +53,21 @@
   <!--Right-->
   <nz-sider nz-col nzBreakpoint="lg" nzSpan="8" nzWidth="33%">
     <nz-card nzTitle="Phim liên quan" class="rating">
-      <ul>
-        <li *ngFor="let cate of category">{{ cate.title }}</li>
-      </ul>
+      <nz-list nzItemLayout="vertical">
+        <nz-list-item *ngFor="let item of category?.movies" [routerLink]="['../../', category?.name, item?.slug]">
+          <nz-list-item-meta>
+            <nz-list-item-meta-title>
+              <a>{{ item.title }}</a>
+            </nz-list-item-meta-title>
+            <nz-list-item-meta-description>
+              {{ item.description | slice:0:100 }}...
+            </nz-list-item-meta-description>
+          </nz-list-item-meta>
+          <nz-list-item-extra>
+            <img width="50" alt="logo" src="{{ item.poster }}" />
+          </nz-list-item-extra>
+        </nz-list-item>
+      </nz-list>
     </nz-card>
   </nz-sider>
 </nz-layout>

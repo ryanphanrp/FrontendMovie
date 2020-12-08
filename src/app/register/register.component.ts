@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
 
   // Submit
   submitForm(value: { nickname: string; email: string; password: string; confirm: string }): void {
-    console.log(value);
     this.authService.register(value).subscribe(
       data => {
         this.notification.create('success', 'SUCCESS', 'Register Successful!!!');

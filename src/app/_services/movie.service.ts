@@ -31,7 +31,7 @@ export class MovieService {
 
   // get categories from API
   getCategories(): Observable<ICategory[]> {
-    return this.http.get<ICategory[]>(this.BASE_URL + 'movie/categories/getcategories', this.httpOptions)
+    return this.http.get<ICategory[]>(this.BASE_URL + 'movie/categories', this.httpOptions)
       .pipe(delay(50));
   }
 
@@ -53,7 +53,6 @@ export class MovieService {
     return forkJoin(this.getMoviesByCategoryAPI(name), this.getACategory(name)).pipe(
       map(([movies, cate]) => {
         cate.movies = movies;
-        console.log(cate);
         return cate;
       })
     );
@@ -63,7 +62,6 @@ export class MovieService {
   getACategory(name: string): Observable<ICategory | undefined> {
     return this.getCategories().pipe(
       map((cates: ICategory[]) => {
-        console.log(cates);
         return cates.find(cate => cate.name === name);
       })
     );
@@ -101,15 +99,15 @@ export class MovieService {
   }
 
   addComment(payload): Observable<any> {
-    return  this.http.post(this.BASE_URL + 'movie/comment/create', {
+    return this.http.post(this.BASE_URL + 'movie/comment/create', {
       movie_id: payload.movieID,
       comment: payload.comment
     }, this.httpOptions).pipe(delay(50));
   }
 
   getComment(payload): Observable<any> {
-    return  this.http.post(this.BASE_URL + 'movie/comment/get', {
-      movie_id: payload.movieID,
+    return this.http.post(this.BASE_URL + 'movie/comment/get', {
+      movie_id: payload,
     }, this.httpOptions).pipe(delay(50));
   }
 

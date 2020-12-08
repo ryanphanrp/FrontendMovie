@@ -40,7 +40,6 @@ export class AuthService {
   }
 
   newPassword(payload): Observable<any> {
-    console.log(payload);
     return this.http.post(AUTH_API + 'newpassword', {
       token: payload.token,
       password: payload.password

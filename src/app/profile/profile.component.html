@@ -16,13 +16,13 @@
   </div>
   <nz-descriptions nzTitle="" [nzSize]="size" nzBordered>
     <nz-descriptions-item nzTitle="Nick Name" [nzSpan]="3">
-      {{ currentUser.nickname }}
+      {{ currentUser?.nickname }}
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Email" [nzSpan]="2">
-      {{ currentUser.email }}
+      {{ currentUser?.email }}
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Ngày tạo">
-      {{ currentUser.dateCreate }}
+      {{ currentUser?.dateCreate }}
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Gói">
       Thành Viên VIP
@@ -31,20 +31,11 @@
       <nz-badge nzStatus="success" nzText="Đang kích hoạt"></nz-badge>
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Hạn sử dụng">
-      {{ currentUser.plan }}
+      {{ currentUser?.plan }}
     </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="Config Info">
-      Data disk type: MongoDB
-      <br />
-      Database version: 3.4
-      <br />
-      Package: dds.mongo.mid
-      <br />
-      Storage space: 10 GB
-      <br />
+    <nz-descriptions-item nzTitle="Thông tin khác">
       <button (click)="payment()">Gia hạn</button>
       <br />
-      Region: East China 1<br />
     </nz-descriptions-item>
   </nz-descriptions>
   <ng-template #extraTpl>

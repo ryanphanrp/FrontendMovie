@@ -1,4 +1,29 @@
-<p>admin-user works!</p>
-<button routerLink="create">Create</button>
-<button routerLink="edit">Edit</button>
-<router-outlet></router-outlet>
+<button nz-button (click)="showCreate()" nzType="primary">Add</button>
+<br />
+<br />
+
+
+<nz-table #adminuser nzBordered [nzData]="listOfData">
+  <thead>
+  <tr nz-row>
+    <th nz-col nzSpan="8">Nick name</th>
+    <th nz-col nzSpan="4">Email</th>
+    <th nz-col nzSpan="8">Plan</th>
+    <th nz-col nzSpan="4">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of adminuser.data" class="editable-row" nz-row>
+    <td nz-col nzSpan="8">{{ data.nickname }}</td>
+    <td nz-col nzSpan="4">{{ data.email }}</td>
+    <td nz-col nzSpan="8">{{ data.plan }}</td>
+    <td nz-col nzSpan="4">
+      <a (click)="showEdit(data)">Edit</a> |
+      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+
+<app-create-user [isVisible]="isCreate" (isHide)="hideCreate($event)"></app-create-user>
+<app-edit-user [isVisible]="isEdit" [currentUser]="itemToEdit" (isHide)="hideEdit($event)"></app-edit-user>

@@ -1,7 +1,8 @@
+{{ movieID }}
 <nz-list *ngIf="commentList.length" [nzDataSource]="commentList" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
   <ng-template #item let-item>
-    <nz-comment [nzAuthor]="item.userId">
-      <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="user.avatar"></nz-avatar>
+    <nz-comment [nzAuthor]="item.user">
+      <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
       <nz-comment-content>
         <p>{{ item.comment }}</p>
       </nz-comment-content>
@@ -9,7 +10,7 @@
   </ng-template>
 </nz-list>
 <nz-comment>
-  <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="user.avatar"></nz-avatar>
+  <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
   <nz-comment-content>
     <nz-form-item>
       <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>

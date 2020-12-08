@@ -17,11 +17,12 @@
     <td nz-col nzSpan="12">
       {{ data.title }}
     <td nz-col nzSpan="4">
-      <a (click)="showEdit(data.name)">Edit</a> |
-      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.name)">Delete</a>
+      <a (click)="showEdit(data)">Edit</a> |
+      <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(data.id)">Delete</a>
     </td>
   </tr>
   </tbody>
 </nz-table>
 
-<app-create-category [isVisible]="isCreate"></app-create-category>
+<app-create-category [isVisible]="isCreate" (isHide)="hideCreate($event)"></app-create-category>
+<app-edit-category [isVisible]="isEdit" [thisCate]="itemToEdit" (isHide)="hideEdit($event)"></app-edit-category>

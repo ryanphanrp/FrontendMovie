@@ -3,7 +3,7 @@
   <!-- Login when not logged-->
     <div *ngIf="!isLoggedIn; else loggedPanel">
       <!--    Reactive Form-->
-      <img src="https://microhealth.com/assets/images/illustrations/personal-user-illustration-@2x.png" class="avatar">
+      <img src="https://img.icons8.com/color/480/000000/user-male-circle--v1.png" class="avatar">
       <h1 nz-typography>Login</h1>
       <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
 

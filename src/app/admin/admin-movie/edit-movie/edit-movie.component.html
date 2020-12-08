@@ -1,5 +1,4 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit Movie" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm(validateForm.value)">
-  {{ this.slug }} <button (click)="update()">update</button>
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
     <!--  Title-->
     <nz-form-item>

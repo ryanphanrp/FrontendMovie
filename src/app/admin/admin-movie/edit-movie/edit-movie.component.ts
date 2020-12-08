@@ -1,21 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../_services/auth.service';
 import {AdminService} from '../../../_services/admin.service';
-import {Router} from '@angular/router';
 import {MovieService} from '../../../_services/movie.service';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {ICategory} from '../../../_shared/movie';
+import {ICategory, IMovie} from '../../../_shared/movie';
 
 @Component({
   selector: 'app-edit-movie',
   templateUrl: './edit-movie.component.html',
   styleUrls: ['./edit-movie.component.css']
 })
-export class EditMovieComponent implements OnInit {
+export class EditMovieComponent implements OnInit, OnChanges {
 
-  @Input() slug: string;
+  @Input() movie: IMovie;
   @Input() isVisible = false;
+  @Output() isHide = new EventEmitter<boolean>();
+  slug = 'testvailon';
 
   validateForm: FormGroup;
 
@@ -29,8 +30,6 @@ export class EditMovieComponent implements OnInit {
     private adminService: AdminService,
     private movieService: MovieService,
     private notification: NzNotificationService) {
-    console.log('slug on constructor:' + this.slug);
-    // create reactive form
     this.validateForm = this.fb.group({
       id: ['', [Validators.required]],
       title: ['',
@@ -61,9 +60,6 @@ export class EditMovieComponent implements OnInit {
         [Validators.required]
       ],
     });
-    this.movieService.getCategories().subscribe(
-      data => this.hotTags = data
-    );
   }
 
 
@@ -95,9 +91,11 @@ export class EditMovieComponent implements OnInit {
     value.category = this.selectedTags.map(val => val.name).toString();
     console.log('before: ' + this.validateForm.value);
     this.adminService.updateMovie(value).subscribe(data => {
-        this.notification.create('success', 'SUCCESS', data);
+        this.notification.create('success', 'SUCCESS', 'Cập nhật phim thành công!');
         setTimeout(() => {
           this.isVisible = false;
+          this.isHide.emit(false);
+          window.location.reload();
         }, 150);
       },
       err => {
@@ -117,41 +115,42 @@ export class EditMovieComponent implements OnInit {
     setTimeout(() => this.validateForm.controls.confirm.updateValueAndValidity());
   }
 
-  update(): void {
-    this.movieService.findMovieBySlug(this.slug).subscribe(data => {
-      console.log(this.slug);
-      console.log(data);
-      const item = {
-        id: data._id,
-        title: data.title,
-        kind: data.kind,
-        year: data.year,
-        category: data.category.toString(),
-        source: data.source,
-        poster: data.poster,
-        imageSource: data.imageSource,
-        dateUpload: data.dateUpload,
-        description: data.description
-      };
-      this.selectedTags = this.hotTags.filter(val => data.category.includes(val.name));
-      this.validateForm.setValue(item);
-    });
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const key = 'movie';
+    if (changes[key]) {
+      if (changes.movie.currentValue) {
+        this.movie = changes.movie.currentValue;
+        const item = {
+          id: this.movie?._id,
+          title: this.movie?.title,
+          kind: this.movie?.kind,
+          year: this.movie?.year,
+          category: this.movie?.category.toString(),
+          source: this.movie?.source,
+          poster: this.movie?.poster,
+          imageSource: this.movie?.imageSource,
+          dateUpload: this.movie?.dateUpload,
+          description: this.movie?.description
+        };
+        this.selectedTags = this.hotTags.filter(val => this.movie?.category.includes(val.name));
+        this.validateForm.patchValue(item);
+      }
+    }
   }
 
 
   ngOnInit(): void {
-    this.movieService.findMovieBySlug(this.slug).subscribe(data => {
-      console.log(this.slug);
-      console.log(data);
-      this.validateForm.setValue(data);
-    });
-    setTimeout(() => {
-      this.update();
-    }, 10000);
+    this.movieService.getCategories().subscribe(
+      data => {
+        this.hotTags = data;
+      }
+    );
   }
 
   handleCancel(): void {
     this.isVisible = false;
+    this.isHide.emit(false);
   }
 
 }

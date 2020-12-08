@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../_services/auth.service';
 import {AdminService} from '../../../_services/admin.service';
@@ -15,6 +15,7 @@ export class CreateMovieComponent implements OnInit {
 
   validateForm: FormGroup;
   @Input() isVisible = false;
+  @Output() isHide = new EventEmitter<boolean>();
 
   hotTags: ICategory[] = [];
   selectedTags: ICategory[] = [];
@@ -89,6 +90,8 @@ export class CreateMovieComponent implements OnInit {
         this.notification.create('success', 'SUCCESS', 'Thêm phim thành công!');
         setTimeout(() => {
           this.isVisible = false;
+          this.isHide.emit(false);
+          window.location.reload();
         }, 150);
       },
       err => {
@@ -114,6 +117,7 @@ export class CreateMovieComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+    this.isHide.emit(false);
   }
 
 }

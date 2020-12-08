@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ProfileComponent } from './profile.component';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
+import {PaymentComponent} from './payment/payment.component';
 
 
 
@@ -11,6 +12,10 @@ const profileRoutes: Routes = [
   {
     path: '',
     component: ProfileComponent,
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   }
 ];
 
