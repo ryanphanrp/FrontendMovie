@@ -31,7 +31,6 @@ export class EditMovieComponent implements OnInit, OnChanges {
     private movieService: MovieService,
     private notification: NzNotificationService) {
     this.validateForm = this.fb.group({
-      id: ['', [Validators.required]],
       title: ['',
         [Validators.required]
       ],
@@ -75,7 +74,6 @@ export class EditMovieComponent implements OnInit, OnChanges {
 
   // Submit
   submitForm(value: {
-    id: string,
     title: string,
     kind: string,
     year: string,
@@ -89,8 +87,7 @@ export class EditMovieComponent implements OnInit, OnChanges {
 
     // send data to server
     value.category = this.selectedTags.map(val => val.name).toString();
-    console.log('before: ' + this.validateForm.value);
-    this.adminService.updateMovie(value).subscribe(data => {
+    this.adminService.updateMovie(this.movie?._id, value).subscribe(data => {
         this.notification.create('success', 'SUCCESS', 'Cập nhật phim thành công!');
         setTimeout(() => {
           this.isVisible = false;
@@ -122,7 +119,6 @@ export class EditMovieComponent implements OnInit, OnChanges {
       if (changes.movie.currentValue) {
         this.movie = changes.movie.currentValue;
         const item = {
-          id: this.movie?._id,
           title: this.movie?.title,
           kind: this.movie?.kind,
           year: this.movie?.year,

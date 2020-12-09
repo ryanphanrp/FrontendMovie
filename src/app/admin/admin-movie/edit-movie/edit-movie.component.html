@@ -1,16 +1,16 @@
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Edit Movie" (nzOnCancel)="handleCancel()" (nzOnOk)="submitForm(validateForm.value)">
   <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
-    <!--  Title-->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>ID</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
-        <input nz-input formControlName="id" placeholder="ID"/>
-        <ng-template #userErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">
-          </ng-container>
-        </ng-template>
-      </nz-form-control>
-    </nz-form-item>
+<!--    &lt;!&ndash;  Title&ndash;&gt;-->
+<!--    <nz-form-item>-->
+<!--      <nz-form-label [nzSpan]="7" nzRequired>ID</nz-form-label>-->
+<!--      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">-->
+<!--        <input nz-input formControlName="id" placeholder="ID"/>-->
+<!--        <ng-template #userErrorTpl let-control>-->
+<!--          <ng-container *ngIf="control.hasError('required')">-->
+<!--          </ng-container>-->
+<!--        </ng-template>-->
+<!--      </nz-form-control>-->
+<!--    </nz-form-item>-->
 
     <!--  Title-->
     <nz-form-item>
@@ -112,7 +112,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Date Upload</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="userErrorTpl">
-        <input nz-input formControlName="dateUpload" placeholder="Upload Date of movie" />
+        <nz-date-picker formControlName="dateUpload"></nz-date-picker>
         <ng-template #userErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">
             Please input Date Upload of movie!

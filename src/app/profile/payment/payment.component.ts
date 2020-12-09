@@ -26,6 +26,7 @@ export class PaymentComponent implements OnInit {
     this.userService.returnPayment(query).subscribe(
       data => {
         this.notification.create('success', 'SUCCESS', 'Thanh toán thành công!!!');
+        this.router.navigate(['profile']);
       },
       err => {
         this.notification.create('error', 'ERROR', err.error.message);

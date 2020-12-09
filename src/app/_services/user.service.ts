@@ -24,8 +24,9 @@ export class UserService {
   }
 
   updateInformation(payload): Observable<any> {
+    console.log(payload.nickname);
     return this.http.post(BASE_URL + 'users/updateinfor', {
-      nickName: payload.userName
+      nickName: payload.nickname
     }, httpOptions).pipe(delay(50));
   }
 

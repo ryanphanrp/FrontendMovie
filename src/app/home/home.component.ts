@@ -29,16 +29,11 @@ export class HomeComponent implements OnInit, DoCheck {
     this.isLoggedIn = !!this.tokenService.getToken();
     if (!this.tokenService.getToken()) {
       this.router.navigate(['/login']);
-    }else{
-      this.router.navigate(['/movie']);
     }
   }
 
   ngOnInit(): void {
     console.log('ngOnInit - TINHTUTE');
-    if (this.tokenService.getToken()) {
-      this.router.navigate(['/movie']);
-    }
     if (!this.isLoggedIn){
       this.router.navigate(['/login']);
     }

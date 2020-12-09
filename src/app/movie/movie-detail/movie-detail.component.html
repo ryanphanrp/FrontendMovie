@@ -54,17 +54,17 @@
   <nz-sider nz-col nzBreakpoint="lg" nzSpan="8" nzWidth="33%">
     <nz-card nzTitle="Phim liên quan" class="rating">
       <nz-list nzItemLayout="vertical">
-        <nz-list-item *ngFor="let item of category?.movies" [routerLink]="['../../', category?.name, item?.slug]">
+        <nz-list-item class="phim-lien-quan" *ngFor="let item of category?.movies" [routerLink]="['../../', category?.name, item?.slug]">
           <nz-list-item-meta>
             <nz-list-item-meta-title>
-              <a>{{ item.title }}</a>
+              <strong>{{ item.title }}</strong>
             </nz-list-item-meta-title>
             <nz-list-item-meta-description>
               {{ item.description | slice:0:100 }}...
             </nz-list-item-meta-description>
           </nz-list-item-meta>
           <nz-list-item-extra>
-            <img width="50" alt="logo" src="{{ item.poster }}" />
+            <img class="anh-phim-lien-quan" alt="logo" src="{{ item.poster }}" />
           </nz-list-item-extra>
         </nz-list-item>
       </nz-list>

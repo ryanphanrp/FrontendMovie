@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
 import {AuthService} from '../../_services/auth.service';
@@ -14,6 +14,7 @@ export class ChangePasswordComponent implements OnInit {
 
   validateForm: FormGroup;
   @Input() isVisible = false;
+  @Output() isHide = new EventEmitter<boolean>();
 
   PASSWORD_PATTERN = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{0,}$/;
 
@@ -39,12 +40,22 @@ export class ChangePasswordComponent implements OnInit {
         this.notification.create('success', 'SUCCESS', 'Change Password Successful!!!');
         setTimeout(() => {
           this.isVisible = false;
+          this.logout();
         }, 100);
       },
       err => {
         this.notification.create('error', 'ERROR', err.error.message);
       }
     );
+  }
+
+  // logout
+  logout(): void {
+    this.tokenService.logOut();
+    this.router.navigate(['/login']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 50);
   }
 
 
@@ -80,8 +91,8 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.isHide.emit(false);
   }
 
 }

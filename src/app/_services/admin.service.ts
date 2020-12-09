@@ -48,10 +48,10 @@ export class AdminService {
     }, httpOptions);
   }
 
-  updateMovie(payload): Observable<any> {
+  updateMovie(ID, payload): Observable<any> {
     console.log(payload);
     return this.http.post(AUTH_API + 'editMovie', {
-      id: payload.id,
+      id: ID,
       title: payload.title,
       year: payload.year,
       kind: payload.kind,
@@ -112,8 +112,9 @@ export class AdminService {
     }, httpOptions);
   }
 
-  updateUser(payload): Observable<any> {
+  updateUser(ID, payload): Observable<any> {
     return this.http.post(AUTH_API + 'edituser', {
+      id: ID,
       nickname: payload.nickname,
       email: payload.email,
       password: payload.password,

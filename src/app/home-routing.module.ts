@@ -17,7 +17,7 @@ const homeRoutes: Routes = [
       },
       {
         path: 'register',
-        component: RegisterComponent
+                component: RegisterComponent
       },
       {
         path: 'profile',

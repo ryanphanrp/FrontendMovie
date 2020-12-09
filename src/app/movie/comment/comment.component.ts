@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {MovieService} from '../../_services/movie.service';
 import {IUser} from '../../_shared/user';
 import {UserService} from '../../_services/user.service';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-comment',
@@ -20,7 +21,8 @@ export class CommentComponent implements OnInit, OnChanges {
 
   constructor(
     private movieService: MovieService,
-    private userService: UserService) {
+    private userService: UserService,
+    private notification: NzNotificationService) {
   }
 
 
@@ -46,10 +48,11 @@ export class CommentComponent implements OnInit, OnChanges {
     const key = 'movieID';
     if (changes[key]) {
       this.commentList = [];
-      this.movieID = changes.isLogged.currentValue;
+      this.movieID = changes.movieID.currentValue;
       this.movieService.getComment(this.movieID).subscribe(
         data => {
           this.commentList = data;
+          console.log(this.commentList);
         },
       );
 
@@ -78,8 +81,23 @@ export class CommentComponent implements OnInit, OnChanges {
         }, 600);
 
       },
-      error => {
-        console.log(error.error.message);
+      err => {
+        this.notification.create('error', 'ERROR', err.error.message);
+      }
+    );
+  }
+
+  deleteComment(id: string): void {
+    this.movieService.deleteComment(id).subscribe(
+      data => {
+        console.log('Success');
+        setTimeout(() => {
+          this.commentList = this.commentList.filter(val => val._id !== id);
+        }, 600);
+
+      },
+      err => {
+        this.notification.create('error', 'ERROR', err.error.message);
       }
     );
   }

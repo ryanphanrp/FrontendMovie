@@ -34,8 +34,8 @@ export class EditUserComponent implements OnInit, OnChanges {
     nickname: string,
     password: string,
   }): void {
-    this.adminService.updateUser(value).subscribe(data => {
-        this.notification.create('success', 'SUCCESS', 'Thêm thành viên thành công!');
+    this.adminService.updateUser(this.currentUser.id, value).subscribe(data => {
+        this.notification.create('success', 'SUCCESS', 'Cập nhật thành viên thành công!');
         setTimeout(() => {
           this.isVisible = false;
           this.isHide.emit(false);

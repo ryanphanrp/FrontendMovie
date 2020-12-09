@@ -35,8 +35,16 @@ export class ProfileComponent implements OnInit {
     this.isVisible = true;
   }
 
+  hideChangePassword(isHide: boolean): void {
+    this.isVisible = isHide;
+  }
+
   showChangeInfo(): void {
     this.isVisibleInfo = true;
+  }
+
+  hideChangeInfo(isHide: boolean): void {
+    this.isVisibleInfo = isHide;
   }
 
   payment(): void {

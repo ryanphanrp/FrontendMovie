@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../_services/user.service';
 import {NzNotificationService} from 'ng-zorro-antd/notification';
@@ -12,6 +12,7 @@ export class ProfileEditComponent implements OnInit {
 
   @Input() isVisible = false;
   validateForm: FormGroup;
+  @Output() isHide = new EventEmitter<boolean>();
 
 
   constructor(
@@ -35,7 +36,8 @@ export class ProfileEditComponent implements OnInit {
   submitForm(value: { nickname: string }): void {
     this.userService.updateInformation(value).subscribe(
       data => {
-        this.notification.create('success', 'SUCCESS', 'Register Successful!!!');
+        this.notification.create('success', 'SUCCESS', 'Cập nhật thành công!!!');
+        window.location.reload();
       },
       err => {
         this.notification.create('error', 'ERROR', err.error.message);
@@ -45,8 +47,8 @@ export class ProfileEditComponent implements OnInit {
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
+    this.isHide.emit(false);
   }
 
   ngOnInit(): void {

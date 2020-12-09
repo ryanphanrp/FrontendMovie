@@ -1,0 +1,57 @@
+::ng-deep .category-list {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+:host ::ng-deep .title-card {
+  background-color: #2c3e50;
+  border-radius: 10px;
+}
+
+:host ::ng-deep .ant-card-head {
+  background-color: #2c3e50;
+  border-radius: 10px;
+}
+
+:host ::ng-deep .ant-card-head-title {
+  color: white;
+}
+
+:host ::ng-deep div.ant-card-extra > button > span {
+  color: white;
+}
+
+:host ::ng-deep div.ant-card-cover > img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  overflow:hidden;
+}
+
+:host ::ng-deep div.ant-card-cover {
+  max-height: 100%;
+  max-width: 100%;
+  height: 300px;
+}
+
+:host ::ng-deep div.ant-card-cover > img {
+  object-fit: contain;
+}
+
+:host ::ng-deep div.ant-card-body {
+  padding: 10px 10px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+:host ::ng-deep div.ant-card-body > div > div > nz-card {
+  border-radius: 7px;
+}
+
+:host ::ng-deep nz-carousel {
+  height: 320px;
+  line-height: 320px;
+}

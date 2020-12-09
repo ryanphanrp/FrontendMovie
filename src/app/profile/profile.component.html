@@ -34,6 +34,7 @@
       {{ currentUser?.plan }}
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="Thông tin khác">
+      Gia hạn thêm 30 ngày sử dụng.
       <button (click)="payment()">Gia hạn</button>
       <br />
     </nz-descriptions-item>
@@ -42,5 +43,5 @@
     <button nz-button nzType="primary">Edit</button>
   </ng-template>
 </div>
-<app-change-password [isVisible]="isVisible"></app-change-password>
-<app-profile-edit [isVisible]="isVisibleInfo"></app-profile-edit>
+<app-change-password [isVisible]="isVisible" (isHide)="hideChangePassword($event)"></app-change-password>
+<app-profile-edit [isVisible]="isVisibleInfo" (isHide)="hideChangeInfo($event)"></app-profile-edit>

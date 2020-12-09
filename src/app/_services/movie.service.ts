@@ -111,4 +111,10 @@ export class MovieService {
     }, this.httpOptions).pipe(delay(50));
   }
 
+  deleteComment(payload): Observable<any> {
+    return this.http.post(this.BASE_URL + 'movie/comment/delete', {
+      id: payload,
+    }, this.httpOptions).pipe(delay(50));
+  }
+
 }

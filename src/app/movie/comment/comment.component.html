@@ -1,22 +1,30 @@
-{{ movieID }}
-<nz-list *ngIf="commentList.length" [nzDataSource]="commentList" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+<nz-list *ngIf="commentList.length" [nzDataSource]="commentList" [nzItemLayout]="'horizontal'" [nzRenderItem]="item">
   <ng-template #item let-item>
-    <nz-comment [nzAuthor]="item.user">
-      <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
+    <nz-comment [nzAuthor]="titleComment" class="comment">
+      <nz-avatar nz-comment-avatar nzIcon="user"
+                 nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
       <nz-comment-content>
         <p>{{ item.comment }}</p>
       </nz-comment-content>
+      <nz-comment-action *ngIf="item.user == currentUser.nickname">
+         <i (click)="deleteComment(item._id)" nz-icon nz-tooltip nzTheme="outline" nzType="delete">
+        <span nz-typography nzType="danger">Xoá bình luận này.</span></i>
+      </nz-comment-action>
+      <ng-template #titleComment>
+        <strong class="user-comment">{{ item.user }}</strong>
+      </ng-template>
     </nz-comment>
   </ng-template>
 </nz-list>
 <nz-comment>
-  <nz-avatar nz-comment-avatar nzIcon="user" nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
+  <nz-avatar nz-comment-avatar nzIcon="user"
+             nzSrc="https://cdn.iconscout.com/icon/free/png-256/avatar-370-456322.png"></nz-avatar>
   <nz-comment-content>
     <nz-form-item>
       <textarea [(ngModel)]="inputValue" nz-input rows="4"></textarea>
     </nz-form-item>
     <nz-form-item>
-      <button nz-button nzType="primary" [nzLoading]="submitting" [disabled]="!inputValue" (click)="handleSubmit()">
+      <button (click)="handleSubmit()" [disabled]="!inputValue" [nzLoading]="submitting" nz-button nzType="primary">
         Add Comment
       </button>
     </nz-form-item>
