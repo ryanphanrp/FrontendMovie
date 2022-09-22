@@ -6,19 +6,19 @@
 
 
 ## Screenshot:
-* trang đăng kí
+* Trang đăng kí
 
 ![alt text](./screenshot/1.png)
 
-* trang đăng nhập
+* Trang đăng nhập
 
 ![alt text](./screenshot/2.png)
 
-* trang chính - dashboard
+* Trang chính - Dashboard
 
 ![alt text](./screenshot/3.png)
 
-* trang xem phim với Plyr.io
+* Trang xem phim với Plyr.io
 
 ![alt text](./screenshot/4.png)
 
